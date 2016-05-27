@@ -1,0 +1,194 @@
+/**
+ * CSS Buttons Stylesheet
+ *
+ * Thanks to paulm for much of the content of the CSS buttons code
+ *
+ * @package templateSystem
+ * @copyright Copyright 2003-2005 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: stylesheet_css_buttons.css 2765 2006-01-01 21:15:45Z birdbrain $
+ */
+
+/* css buttons */
+.cssButton, .cssButtonHover {
+	font-family: 'Fjalla One', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#fff;
+	font-weight:400;
+	text-decoration:none!important;
+	background:#f64a36;
+	display:inline-block;
+	padding:4px 9px 5px 6px;
+	cursor:pointer!important;
+	margin:0 2px;
+}
+a span{
+	width:auto!important;
+}
+.cssButton:hover,
+.cssButtonHover {
+	font-family: 'Fjalla One', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#fff;
+	font-weight:400;
+	text-decoration:none!important;
+	background:#8dbb04;
+	display:inline-block;
+	padding:4px 9px 5px 6px;
+	cursor:pointer!important;
+	margin:0 2px;
+}
+.navNextPrevWrapper a,
+.btn1 a{
+	text-decoration:none;
+}
+/* adding the styles below might be needed if the default button width is changed */
+/* .button_continue_shopping, .button_shipping_estimator {width: 150px;} */
+.small_delete, .button_prev, .button_next, .button_search  {}
+.button_sold_out_sm, .button_sold_out, .button_update_cart, .button_checkout, .button_login {}
+.button_return_to_product_list, .button_add_selected {}
+.button_in_cart{}  
+.button_submit {}
+.button_update_cart {}
+.button_update_cartHover {}
+/*.innerbox#headernavcenter .boxtext .button_search {display:inline;}*/
+
+/*---search-button---*/
+#head-search .cssButton.search{
+	width:44px!important;
+	height:41px!important;
+	border:none;
+	background:url(../images/search.gif) no-repeat 0 100%;
+	font-size:0;
+	cursor:pointer;
+	float:left;
+	margin:0;
+}
+#head-search .cssButtonHover.search{
+	width:44px!important;
+	height:41px!important;
+	border:none;
+	background:url(../images/search.gif) no-repeat 0 0;
+	font-size:0;
+	cursor:pointer;
+	float:left;
+	margin:0;
+}
+
+
+.product-col .button .cssButton,
+.product-col .button .cssButtonHover {
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#4f4f4f;
+	font-weight:400;
+	text-decoration:none!important;
+	padding:0 !important;
+	display:block !important;
+	text-indent:-10000px;
+	background:url(../images/add_to_cart.png) no-repeat 0 100% !important;
+	cursor:pointer!important;
+	width:32px !important; 
+	height:32px !important;
+	margin:0 !important;
+}
+
+.product-col .button .cssButton:hover,
+.product-col .button .cssButtonHover{
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#4f4f4f;
+	font-weight:400;
+	text-decoration:none!important;
+	padding:0 !important;
+	display:block !important;
+	text-indent:-10000px;
+	background:url(../images/add_to_cart.png) no-repeat 0 0% !important;
+	cursor:pointer!important;
+	width:32px !important; 
+	height:32px !important;
+	margin:0 !important;
+}
+
+
+.product-col .button1 .cssButton,
+.product-col .button1 .cssButtonHover {
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#4f4f4f;
+	font-weight:400;
+	text-decoration:none!important;
+	padding:0 !important;
+	display:block !important;
+	text-indent:-10000px;
+	background:url(../images/info_icon.png) no-repeat 0 100% !important;
+	cursor:pointer!important;
+	width:32px !important; 
+	height:32px !important;
+	margin:0 !important;
+}
+
+.product-col .button1 .cssButton:hover,
+.product-col .button1 .cssButtonHover{
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#4f4f4f;
+	font-weight:400;
+	text-decoration:none!important;
+	padding:0 !important;
+	display:block !important;
+	text-indent:-10000px;
+	background:url(../images/info_icon.png) no-repeat 0 0% !important;
+	cursor:pointer!important;
+	width:32px !important; 
+	height:32px !important;
+	margin:0 !important;
+}
+
+.box-body .button1 .cssButton{
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#4f4f4f;
+	font-weight:400;
+	text-decoration:none!important;
+	padding:0 !important;
+	display:block !important;
+	text-indent:-10000px;
+	background:url(../images/info_icon2.png) no-repeat 0 100% !important;
+	cursor:pointer!important;
+	width:32px !important; 
+	height:32px !important;
+	margin:0 !important;
+}
+.box-body .button1 .cssButtonHover{
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	text-transform:uppercase;
+	color:#4f4f4f;
+	font-weight:400;
+	text-decoration:none!important;
+	padding:0 !important;
+	display:block !important;
+	text-indent:-10000px;
+	background:url(../images/info_icon2.png) no-repeat 0 0% !important;
+	cursor:pointer!important;
+	width:32px !important; 
+	height:32px !important;
+	margin:0 !important;
+}
