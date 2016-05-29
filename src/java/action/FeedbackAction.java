@@ -7,26 +7,51 @@ package action;
 
 import controller.FeedbackController;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import model.Feedback;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
  * @author cam
  */
-public class FeedbackAction extends ActionSupport {
+public class FeedbackAction extends ActionSupport implements ServletRequestAware {
     
     private Feedback feedback;
-    private FeedbackController controller;
+    private final FeedbackController controller;
     private int id;
+    private List<Feedback> list = new ArrayList<>();
+    private HttpServletRequest request;
     
     public String sendFeedback() throws Exception {
         boolean insert = controller.sendFeedback(this.getFeedback());
         System.out.println(insert);
         if(insert == true) {
-            addActionMessage("Send feedback success, thank you!");
+            this.addActionMessage("Send feedback success, thank you!");
             return SUCCESS;
         } else {
-            addActionError("Have some error, please try again!");
+            this.addActionError("Have some error, please try again!");
+            return ERROR;
+        }
+    }
+    
+    public String getAll() {
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        return SUCCESS;
+    }
+    
+    public String delete() {
+        int id = Integer.parseInt(request.getParameter("id"));
+        int delete = controller.delete(id);
+        if(delete != 0) {
+            this.addActionMessage("Delete feedback success!");
+            return SUCCESS;
+        } else {
+            this.addActionError("Have some error, please try again!");
             return ERROR;
         }
     }
@@ -50,5 +75,18 @@ public class FeedbackAction extends ActionSupport {
     public void setId(int id) {
         this.id = id;
     }
-    
+
+    public List<Feedback> getList() {
+        return list;
+    }
+
+    public void setList(List<Feedback> list) {
+        this.list = list;
+    }
+
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.request = hsr;
+    }
+
 }

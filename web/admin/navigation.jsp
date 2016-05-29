@@ -22,49 +22,49 @@
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/product" />">
+                <a href="<s:url action="product" />">
                     <i class="fa fa-th"></i>
                     <span>Product</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/category" />">
+                <a href="<s:url action="category" />">
                     <i class="fa fa-files-o"></i>
                     <span>Category</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/order" />">
+                <a href="<s:url action="order" />">
                     <i class="fa fa-cart-plus"></i>
                     <span>Order</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/store" />">
+                <a href="<s:url action="store" />">
                     <i class="fa fa-folder"></i>
                     <span>Store</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/discount" />">
+                <a href="<s:url action="discount" />">
                     <i class="fa fa-edit"></i>
                     <span>Discount</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/banner" />">
+                <a href="<s:url action="banner" />">
                     <i class="fa fa-laptop"></i>
                     <span>Banner</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/feedback" />">
+                <a href="<s:url action="feedback" />">
                     <i class="fa fa-envelope"></i>
                     <span>Feedback</span>
                 </a>
             </li>
             <li>
-                <a href="<s:url value="/admin/user" />">
+                <a href="<s:url action="user" />">
                     <i class="fa fa-user"></i>
                     <span>User</span>
                 </a>

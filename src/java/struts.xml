@@ -22,5 +22,11 @@
         <action name="*">
             <result name="success">/admin/index.jsp</result>
         </action>
+        <action name="feedback" class="action.FeedbackAction" method="getAll">
+            <result name="success">/admin/feedback/index.jsp</result>
+        </action>
+        <action name="delete-feedback" class="action.FeedbackAction" method="delete">
+            <result name="success" type="redirectAction">feedback</result>
+        </action>
     </package>
 </struts>
