@@ -15,7 +15,7 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="<s:url value="product" />">
+                    <a href="<s:url action="product" />">
                     <span class="corner"></span>
                     <span>
                         <span>Products</span>
@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="<s:url value="/contact-us" />">
+                    <a href="<s:url action="contact-us" />">
                     <span class="corner"></span>
                     <span>
                         <span>Contact Us</span>
