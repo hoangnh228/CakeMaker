@@ -13,7 +13,7 @@
         </action>
         <action name="send-feedback" class="action.FeedbackAction" method="sendFeedback">
             <result name="success">contact.jsp</result>
-            <result name="error">contact.jsp</result>
+            <result name="input">contact.jsp</result>
         </action>
     </package>
     
@@ -22,11 +22,35 @@
         <action name="*">
             <result name="success">/admin/index.jsp</result>
         </action>
+        
+        <!-- feedback -->
         <action name="feedback" class="action.FeedbackAction" method="getAll">
             <result name="success">/admin/feedback/index.jsp</result>
         </action>
         <action name="delete-feedback" class="action.FeedbackAction" method="delete">
             <result name="success" type="redirectAction">feedback</result>
+        </action>
+        
+        <!-- category -->
+        <action name="category" class="action.CategoryAction" method="getAll">
+            <result name="success">/admin/category/index.jsp</result>
+        </action>
+        <action name="add-category">
+            <result name="success">/admin/category/add.jsp</result>
+        </action>
+        <action name="insert-category" class="action.CategoryAction" method="create">
+            <result name="success" type="redirectAction">category</result>
+            <result name="input">/admin/category/add.jsp</result>
+        </action>
+        <action name="edit-category" class="action.CategoryAction" method="getById">
+            <result name="success">/admin/category/edit.jsp</result>
+        </action>
+        <action name="update-category" class="action.CategoryAction" method="update">
+            <result name="success" type="redirectAction">category</result>
+            <result name="input">/admin/category/edit.jsp</result>
+        </action>
+        <action name="delete-category" class="action.CategoryAction" method="delete">
+            <result name="success" type="redirectAction">category</result>
         </action>
     </package>
 </struts>

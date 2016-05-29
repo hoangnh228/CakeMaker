@@ -43,7 +43,7 @@ public class FeedbackController {
     }
     
     public List getAll() {
-        List list = new ArrayList<Feedback>();
+        List list = new ArrayList<>();
         String sql = "select * from feedback";
 
         try {

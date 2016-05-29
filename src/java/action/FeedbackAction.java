@@ -28,13 +28,12 @@ public class FeedbackAction extends ActionSupport implements ServletRequestAware
     
     public String sendFeedback() throws Exception {
         boolean insert = controller.sendFeedback(this.getFeedback());
-        System.out.println(insert);
         if(insert == true) {
             this.addActionMessage("Send feedback success, thank you!");
             return SUCCESS;
         } else {
             this.addActionError("Have some error, please try again!");
-            return ERROR;
+            return INPUT;
         }
     }
     
@@ -45,8 +44,8 @@ public class FeedbackAction extends ActionSupport implements ServletRequestAware
     }
     
     public String delete() {
-        int id = Integer.parseInt(request.getParameter("id"));
-        int delete = controller.delete(id);
+        int fid = Integer.parseInt(request.getParameter("id"));
+        int delete = controller.delete(fid);
         if(delete != 0) {
             this.addActionMessage("Delete feedback success!");
             return SUCCESS;
