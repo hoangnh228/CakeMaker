@@ -93,5 +93,27 @@
         <action name="delete-discount" class="action.DiscountAction" method="delete">
             <result name="success" type="redirectAction">discount</result>
         </action>
+        
+        <!-- category -->
+        <action name="store" class="action.StoreAction" method="getAll">
+            <result name="success">/admin/store/index.jsp</result>
+        </action>
+        <action name="add-store">
+            <result name="success">/admin/store/add.jsp</result>
+        </action>
+        <action name="insert-store" class="action.StoreAction" method="create">
+            <result name="success" type="redirectAction">store</result>
+            <result name="input">/admin/store/add.jsp</result>
+        </action>
+        <action name="edit-store" class="action.StoreAction" method="getById">
+            <result name="success">/admin/store/edit.jsp</result>
+        </action>
+        <action name="update-store" class="action.StoreAction" method="update">
+            <result name="success" type="redirectAction">store</result>
+            <result name="input">/admin/store/edit.jsp</result>
+        </action>
+        <action name="delete-store" class="action.StoreAction" method="delete">
+            <result name="success" type="redirectAction">store</result>
+        </action>
     </package>
 </struts>
