@@ -281,9 +281,6 @@
             
         </div>
         <!-- ./wrapper -->
-
-        <!-- js lib -->
-        <s:include value="jslib.jsp" />
     </body>
 </html>
 

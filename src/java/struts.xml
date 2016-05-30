@@ -3,6 +3,8 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <constant name="struts.devMode" value="false" />
+    
     <!-- Configuration for the default package. -->
     <package name="default" namespace="/" extends="struts-default">
         <action name="*">
@@ -51,6 +53,23 @@
         </action>
         <action name="delete-category" class="action.CategoryAction" method="delete">
             <result name="success" type="redirectAction">category</result>
+        </action>
+        
+        <!-- banner -->
+        <action name="banner" class="action.BannerAction" method="getAll">
+            <result name="success">/admin/banner/index.jsp</result>
+        </action>
+         <action name="upload-banner" class="action.BannerAction" method="create">  
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+                <param name="allowedTypes">image/png,image/gif,image/jpeg,image/pjpeg</param>  
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>  
+            <result name="success" type="redirectAction">banner</result>
+            <result name="input" type="redirectAction">banner</result> 
+        </action>
+        <action name="delete-banner" class="action.BannerAction" method="delete">
+            <result name="success" type="redirectAction">banner</result>
         </action>
     </package>
 </struts>
