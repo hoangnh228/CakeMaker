@@ -44,7 +44,6 @@
                                 <div class="box-header">
                                     <h3 class="box-title">All category</h3>
                                     <s:a cssStyle="width: 100px; display: inline-block; float: right;" cssClass="btn btn-block btn-primary" action="add-category">Add new</s:a>
-                                    
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">

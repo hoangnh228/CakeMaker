@@ -71,5 +71,27 @@
         <action name="delete-banner" class="action.BannerAction" method="delete">
             <result name="success" type="redirectAction">banner</result>
         </action>
+        
+        <!-- category -->
+        <action name="discount" class="action.DiscountAction" method="getAll">
+            <result name="success">/admin/discount/index.jsp</result>
+        </action>
+        <action name="add-discount">
+            <result name="success">/admin/discount/add.jsp</result>
+        </action>
+        <action name="insert-discount" class="action.DiscountAction" method="create">
+            <result name="success" type="redirectAction">discount</result>
+            <result name="input">/admin/discount/add.jsp</result>
+        </action>
+        <action name="edit-discount" class="action.DiscountAction" method="getById">
+            <result name="success">/admin/discount/edit.jsp</result>
+        </action>
+        <action name="update-discount" class="action.DiscountAction" method="update">
+            <result name="success" type="redirectAction">discount</result>
+            <result name="input">/admin/discount/edit.jsp</result>
+        </action>
+        <action name="delete-discount" class="action.DiscountAction" method="delete">
+            <result name="success" type="redirectAction">discount</result>
+        </action>
     </package>
 </struts>
