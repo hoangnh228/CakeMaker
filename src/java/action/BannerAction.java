@@ -12,6 +12,7 @@ import controller.BannerController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import model.Banner;
 import org.apache.commons.io.FileUtils;
@@ -41,20 +42,21 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
     
     public String create() throws Exception {
         String filePath = request.getSession().getServletContext().getRealPath("/").concat("public\\upload\\banner");
-        System.out.println("Image Location:" + this.getUploadFileName()); //see the server console for actual location
-        return SUCCESS;
-//        File fileToCreate = new File(filePath, this.getUploadFileNames());  
-//        FileUtils.copyFile(this.getUploads(), fileToCreate); //copying image in the new file  
-//        this.getBanner().setUrl(this.getUploadFileNames());
-//
-//        boolean insert = controller.insert(this.getBanner());
-//        if(insert == true) {
-//            this.addActionMessage("Create category success!");
-//            return SUCCESS;
-//        } else {
-//            this.addActionError("Have some error, please try again!");
-//            return ERROR;
-//        }
+        Random rand = new Random();
+        int n = rand.nextInt(99999) + 1;
+        File fileToCreate = new File(filePath, n + "_" + this.getUploadFileName());  
+        FileUtils.copyFile(this.getUpload(), fileToCreate);
+        Banner b = new Banner();
+        b.setUrl(n + "_" + this.getUploadFileName());
+        boolean insert = controller.insert(b);
+        
+        if(insert == true) {
+            this.addActionMessage("Create category success!");
+            return SUCCESS;
+        } else {
+            this.addActionError("Have some error, please try again!");
+            return ERROR;
+        }
     }
     
     public String delete() {

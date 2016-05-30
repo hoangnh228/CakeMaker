@@ -56,7 +56,7 @@
                                         <thead>
                                             <tr>
                                                 <th width="20">ID</th>
-                                                <th width="250">Url</th>
+                                                <th width="250">Filename</th>
                                                 <th>Preview</th>
                                                 <th width="100">Action</th>
                                             </tr>
@@ -67,7 +67,7 @@
                                                     <td><s:property value="id"/></td>
                                                     <td><s:property value="url"/></td>
                                                     <td>
-                                                        <img src="<s:property value="url"/>" />
+                                                        <img style="max-height: 100px" src="<s:url value="../public/upload/banner/"/><s:property value="url"/>" />
                                                     </td>
                                                     <td>
                                                         <s:url id="deleteBanner" action="delete-banner">
@@ -81,7 +81,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Url</th>
+                                                <th>Filename</th>
                                                 <th>Preview</th>
                                                 <th>Action</th>
                                             </tr>
