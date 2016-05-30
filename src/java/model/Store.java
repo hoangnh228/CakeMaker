@@ -15,19 +15,19 @@ public class Store {
     private String address;
     private String phone;
     private String description;
-    private float lattitude;
-    private float longtitude;
+    private float latitude;
+    private float longitude;
 
     public Store() {
     }
 
-    public Store(int id, String address, String phone, String description, float lattitude, float longtitude) {
+    public Store(int id, String address, String phone, String description, float latitude, float longitude) {
         this.id = id;
         this.address = address;
         this.phone = phone;
         this.description = description;
-        this.lattitude = lattitude;
-        this.longtitude = longtitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -62,20 +62,20 @@ public class Store {
         this.description = description;
     }
 
-    public float getLattitude() {
-        return lattitude;
+    public float getLatitude() {
+        return latitude;
     }
 
-    public void setLattitude(float lattitude) {
-        this.lattitude = lattitude;
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
     }
 
-    public float getLongtitude() {
-        return longtitude;
+    public float getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(float longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
     
 }
