@@ -72,7 +72,7 @@
             <result name="success" type="redirectAction">banner</result>
         </action>
         
-        <!-- category -->
+        <!-- discount -->
         <action name="discount" class="action.DiscountAction" method="getAll">
             <result name="success">/admin/discount/index.jsp</result>
         </action>
@@ -94,7 +94,7 @@
             <result name="success" type="redirectAction">discount</result>
         </action>
         
-        <!-- category -->
+        <!-- store -->
         <action name="store" class="action.StoreAction" method="getAll">
             <result name="success">/admin/store/index.jsp</result>
         </action>
@@ -115,5 +115,28 @@
         <action name="delete-store" class="action.StoreAction" method="delete">
             <result name="success" type="redirectAction">store</result>
         </action>
+        
+        <!-- product -->
+        <action name="product" class="action.ProductAction" method="getAll">
+            <result name="success">/admin/product/index.jsp</result>
+        </action>
+        <action name="add-product">
+            <result name="success">/admin/product/add.jsp</result>
+        </action>
+        <action name="insert-product" class="action.ProductAction" method="create">
+            <result name="success" type="redirectAction">store</result>
+            <result name="input">/admin/product/add.jsp</result>
+        </action>
+        <action name="edit-product" class="action.ProductAction" method="getById">
+            <result name="success">/admin/product/edit.jsp</result>
+        </action>
+        <action name="update-product" class="action.ProductAction" method="update">
+            <result name="success" type="redirectAction">product</result>
+            <result name="input">/admin/product/edit.jsp</result>
+        </action>
+        <action name="delete-product" class="action.ProductAction" method="delete">
+            <result name="success" type="redirectAction">product</result>
+        </action>
+        
     </package>
 </struts>
