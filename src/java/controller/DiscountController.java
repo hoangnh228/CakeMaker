@@ -107,6 +107,22 @@ public class DiscountController {
         return records;
     }
     
+    public boolean checkHasProduct(int id) {
+        boolean check = false;
+        String sql = "select * from products where discount_id = ?";
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                check = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DiscountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check;
+    }
+    
     public int delete(int id) {
         int deleted = 0;
         String sql = "delete from discounts where id = ?";

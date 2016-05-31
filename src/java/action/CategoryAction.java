@@ -36,11 +36,13 @@ public class CategoryAction extends ActionSupport implements ServletRequestAware
     public String create() throws Exception {
         boolean insert = controller.insert(this.getCategory());
         if(insert == true) {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionMessage("Create category success!");
             return SUCCESS;
         } else {
             this.addActionError("Have some error, please try again!");
-            return ERROR;
+            return INPUT;
         }
     }
     
@@ -54,9 +56,13 @@ public class CategoryAction extends ActionSupport implements ServletRequestAware
     public String update() {
         int update = controller.update(this.getCategory());
         if(update != 0) {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionMessage("Update category success!");
             return SUCCESS;
         } else {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionError("Have some error, please try again!");
             return INPUT;
         }
@@ -64,12 +70,23 @@ public class CategoryAction extends ActionSupport implements ServletRequestAware
     
     public String delete() {
         int cid = Integer.parseInt(request.getParameter("id"));
-        int delete = controller.delete(cid);
-        if(delete != 0) {
-            this.addActionMessage("Delete category success!");
-            return SUCCESS;
+        boolean check = controller.checkHasProduct(cid);
+        
+        if(check == false) {
+            int delete = controller.delete(cid);
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            if(delete != 0) {
+                this.addActionMessage("Delete category success!");
+                return SUCCESS;
+            } else {
+                this.addActionError("Have some error, please try again!");
+                return ERROR;
+            }
         } else {
-            this.addActionError("Have some error, please try again!");
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            this.addActionError("Have products in category, please delete product first!");
             return ERROR;
         }
     }

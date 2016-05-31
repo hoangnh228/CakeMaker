@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <s:include value="../head.jsp">
-        <s:param name="titlePage">Category manager</s:param>
+        <s:param name="titlePage">Banner manager</s:param>
     </s:include>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -45,7 +45,7 @@
                                     <h3 class="box-title">All banner</h3>
                                     <div style="margin-top: 15px;">
                                         <s:form action="upload-banner" method="post" enctype="multipart/form-data">
-                                            <input type="file" name="upload" />
+                                            <input type="file" required name="upload" />
                                             <input type="submit" value="Upload" class="btn btn-block btn-primary" style="width: 100px; display: inline-block; float: left; margin-top: 10px;" />
                                         </s:form>
                                     </div>
