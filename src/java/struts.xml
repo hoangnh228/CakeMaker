@@ -7,6 +7,13 @@
     
     <!-- Configuration for the default package. -->
     <package name="default" namespace="/" extends="struts-default">
+        <interceptors>
+            <interceptor name="clientInterceptor" class="interceptor.ClientInterceptor"></interceptor>
+            <interceptor-stack name="globalStack">
+                <interceptor-ref name="clientInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="globalStack"/>
         <action name="*">
             <result name="success">index.jsp</result>
         </action>
