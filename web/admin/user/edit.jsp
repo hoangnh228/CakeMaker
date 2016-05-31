@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <s:include value="../head.jsp">
-        <s:param name="titlePage">Product manager</s:param>
+        <s:param name="titlePage">User manager</s:param>
     </s:include>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -20,11 +20,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Add new Product
+                        Edit User
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Product</li>
+                        <li class="active">User</li>
                     </ol>
                     <s:if test="hasActionErrors()">
                         <h4><s:actionerror /></h4>
@@ -42,73 +42,66 @@
                             <!-- Horizontal Form -->
                             <div class="box box-info">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Product Form</h3>
+                                    <h3 class="box-title">User Form</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
-                                <form class="form-horizontal" action="<s:url action="insert-product" />" method="post" enctype="multipart/form-data">
+                                <form class="form-horizontal" action="<s:url action="update-user" />" method="post">
+                                    <input type="hidden" name="user.id" value="${user.id}">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label for="title" class="col-sm-3 control-label">Title</label>
+                                            <label for="username" class="col-sm-3 control-label">Username</label>
                                             <div class="col-sm-9">
-                                                <input type="text" required name="product.title" class="form-control" id="title" placeholder="Title">
+                                                <input type="text" readonly value="${user.username}" class="form-control" id="username">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="category" class="col-sm-3 control-label">Category</label>
+                                            <label for="address" class="col-sm-3 control-label">Address</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="product.category_id">
-                                                    <s:iterator value="cList" >
-                                                        <option value="<s:property value="id"/>"><s:property value="title"/></option>
-                                                    </s:iterator>
+                                                <input type="text" required name="user.address" value="${user.address}" class="form-control" id="address" placeholder="Address">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-3 control-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" required name="user.email" value="${user.email}" class="form-control" id="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone" class="col-sm-3 control-label">Phone</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" required name="user.phone" value="${user.phone}" class="form-control" id="phone" placeholder="Phone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="permission" class="col-sm-3 control-label">Permission</label>
+                                            <div class="col-sm-9">
+                                                <s:set var="per">${user.permission}</s:set>
+                                                <select class="form-control" name="user.permission" id="permission">
+                                                    <s:if test="#per == 1">
+                                                        <option value="1" selected="">Admin</option>
+                                                        <option value="0">User</option>
+                                                    </s:if>
+                                                    <s:else>
+                                                        <option value="1">Admin</option>
+                                                        <option value="0" selected="">User</option>
+                                                    </s:else>
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="title" class="col-sm-3 control-label">Discount</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" name="product.discount_id">
-                                                    <s:iterator value="dList" >
-                                                        <option value="<s:property value="id"/>"><s:property value="title"/></option>
-                                                    </s:iterator>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="price" class="col-sm-3 control-label">Price</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" required name="product.price" class="form-control" id="price" placeholder="Price">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="upload" class="col-sm-3 control-label">Image</label>
-                                            <div class="col-sm-9">
-                                                <input required="" type="file" class="form-control" name="upload" id="upload" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="short_des" class="col-sm-3 control-label">Short description</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" required name="product.short_description" class="form-control" id="short_des" placeholder="Short description">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="full_des" class="col-sm-3 control-label">Full description</label>
-                                            <div class="col-sm-9">
-                                                <textarea name="product.full_description" required class="textarea" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                                <script>
-                                                    $(function () {
-                                                        $(".textarea").wysihtml5();
-                                                    });
-                                                </script>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="status" class="col-sm-3 control-label">Status</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="product.status" id="status">
-                                                    <option value="1">publish</option>
-                                                    <option value="0">unpublish</option>
+                                                <s:set var="stt">${user.permission}</s:set>
+                                                <select class="form-control" name="user.status" id="status">
+                                                    <s:if test="#stt == 1">
+                                                        <option value="1" selected="">Unlock</option>
+                                                        <option value="0">Lock</option>
+                                                    </s:if>
+                                                    <s:else>
+                                                        <option value="1">Unlock</option>
+                                                        <option value="0" selected="">Lock</option>
+                                                    </s:else>
                                                 </select>
                                             </div>
                                         </div>

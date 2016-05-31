@@ -52,7 +52,7 @@
                                         <div class="form-group">
                                             <label for="title" class="col-sm-3 control-label">Title</label>
                                             <div class="col-sm-9">
-                                                <input type="text" required name="product.title" class="form-control" value="${product.title}" required id="title" placeholder="Title">
+                                                <input type="text" required name="product.title" class="form-control" value="${product.title}" id="title" placeholder="Title">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -88,7 +88,7 @@
                                         <div class="form-group">
                                             <label for="price" class="col-sm-3 control-label">Price</label>
                                             <div class="col-sm-9">
-                                                <input type="text" required name="product.price" value="${product.price}" required class="form-control" id="price" placeholder="Price">
+                                                <input type="text" required name="product.price" value="${product.price}" class="form-control" id="price" placeholder="Price">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -101,13 +101,13 @@
                                         <div class="form-group">
                                             <label for="short_des" class="col-sm-3 control-label">Short description</label>
                                             <div class="col-sm-9">
-                                                <input type="text" required name="product.short_description" value="${product.short_description}" required class="form-control" id="short_des" placeholder="Short description">
+                                                <input type="text" required name="product.short_description" value="${product.short_description}" class="form-control" id="short_des" placeholder="Short description">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="full_des" class="col-sm-3 control-label">Full description</label>
                                             <div class="col-sm-9">
-                                                <textarea name="product.full_description" class="textarea" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${product.full_description}</textarea>
+                                                <textarea name="product.full_description" required class="textarea" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${product.full_description}</textarea>
                                                 <script>
                                                     $(function () {
                                                         $(".textarea").wysihtml5();
