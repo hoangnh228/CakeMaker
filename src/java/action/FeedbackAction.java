@@ -46,6 +46,8 @@ public class FeedbackAction extends ActionSupport implements ServletRequestAware
     public String delete() {
         int fid = Integer.parseInt(request.getParameter("id"));
         int delete = controller.delete(fid);
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
         if(delete != 0) {
             this.addActionMessage("Delete feedback success!");
             return SUCCESS;

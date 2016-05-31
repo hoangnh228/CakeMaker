@@ -23,14 +23,14 @@ public class Product {
     private String full_description;
     private Date create_date;
     private int view_count;
-    private boolean status;
+    private int status;
     private String category;
     private String discount;
 
     public Product() {
     }
 
-    public Product(int id, int discount_id, int category_id, String title, float price, String image, String short_description, String full_description, Date create_date, int view_count, boolean status, String category, String discount) {
+    public Product(int id, int discount_id, int category_id, String title, float price, String image, String short_description, String full_description, Date create_date, int view_count, int status, String category, String discount) {
         this.id = id;
         this.discount_id = discount_id;
         this.category_id = category_id;
@@ -126,11 +126,11 @@ public class Product {
         this.view_count = view_count;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -149,5 +149,5 @@ public class Product {
     public void setDiscount(String discount) {
         this.discount = discount;
     }
-    
+
 }

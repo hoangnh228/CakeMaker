@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <s:include value="../head.jsp">
-        <s:param name="titlePage">Category manager</s:param>
+        <s:param name="titlePage">Discount manager</s:param>
     </s:include>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">

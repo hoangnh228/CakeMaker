@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Product;
-import model.Store;
 import util.DatabaseUtil;
 
 /**
@@ -41,7 +40,7 @@ public class ProductController {
                 p.setFull_description(rs.getString("full_description"));
                 p.setCreate_date(rs.getDate("create_date"));
                 p.setView_count(rs.getInt("view_count"));
-                p.setStatus(rs.getBoolean("status"));
+                p.setStatus(rs.getInt("status"));
                 p.setCategory(rs.getString("category"));
                 p.setDiscount(rs.getString("discount"));
                 list.add(p);
@@ -53,67 +52,77 @@ public class ProductController {
         return list;
     }
     
-//    public Store getById(int id) {
-//        Store store = null;
-//        String sql = "select * from stores where id = ?";
-//        
-//        try {
-//            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                store = new Store();
-//                store.setId(rs.getInt("id"));
-//                store.setAddress(rs.getString("address"));
-//                store.setPhone(rs.getString("phone"));
-//                store.setDescription(rs.getString("description"));
-//                store.setLatitude(rs.getFloat("latitude"));
-//                store.setLongitude(rs.getFloat("longitude"));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        return store;
-//    }
-//    
-//    public boolean insert(Store s) {
-//        boolean result = false;
-//        String sql = "insert into stores values(?, ?, ?, ?, ?)";
-//        
-//        try {
-//            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
-//            ps.setString(1, s.getAddress());
-//            ps.setString(2, s.getPhone());
-//            ps.setString(3, s.getDescription());
-//            ps.setFloat(4, s.getLatitude());
-//            ps.setFloat(5, s.getLongitude());
-//            int executeUpdate = ps.executeUpdate();
-//            result = executeUpdate > 0;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        return result;
-//    }
-//    
-//    public int update(Store s) {
-//        int records = 0;
-//        String sql = "update stores set address = ?, phone = ?, description = ?, latitude = ?, longitude = ? where id = ?";
-//        try {
-//            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
-//            ps.setString(1, s.getAddress());
-//            ps.setString(2, s.getPhone());
-//            ps.setString(3, s.getDescription());
-//            ps.setFloat(4, s.getLatitude());
-//            ps.setFloat(5, s.getLongitude());
-//            ps.setInt(6, s.getId());
-//            records = ps.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return records;
-//    }
+    public Product getById(int id) {
+        Product product = null;
+        String sql = "select * from products where id = ?";
+        
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setCategory_id(rs.getInt("category_id"));
+                product.setDiscount_id(rs.getInt("discount_id"));
+                product.setTitle(rs.getString("title"));
+                product.setPrice(rs.getFloat("price"));
+                product.setImage(rs.getString("image"));
+                product.setShort_description(rs.getString("short_description"));
+                product.setFull_description(rs.getString("full_description"));
+                product.setStatus(rs.getInt("status"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return product;
+    }
+    
+    public boolean insert(Product p) {
+        boolean result = false;
+        String sql = "insert into products values(?, ?, ?, ?, ?, ?, ?, GETDATE(), ?, ?)";
+        
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setInt(1, p.getDiscount_id());
+            ps.setInt(2, p.getCategory_id());
+            ps.setString(3, p.getTitle());
+            ps.setFloat(4, p.getPrice());
+            ps.setString(5, p.getImage());
+            ps.setString(6, p.getShort_description());
+            ps.setString(7, p.getFull_description());
+            ps.setInt(8, 0);
+            ps.setInt(9, p.getStatus());
+            int executeUpdate = ps.executeUpdate();
+            result = executeUpdate > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
+    public int update(Product p) {
+        int records = 0;
+        String sql = "update products set discount_id = ?, category_id = ?, title = ?, price = ?, image = ?, short_description = ?, full_description = ?, status = ? where id = ?";
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setInt(1, p.getDiscount_id());
+            ps.setInt(2, p.getCategory_id());
+            ps.setString(3, p.getTitle());
+            ps.setFloat(4, p.getPrice());
+            ps.setString(5, p.getImage());
+            ps.setString(6, p.getShort_description());
+            ps.setString(7, p.getFull_description());
+            ps.setInt(8, p.getStatus());
+            ps.setInt(9, p.getId());
+            records = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return records;
+    }
     
     public int delete(int id) {
         int deleted = 0;

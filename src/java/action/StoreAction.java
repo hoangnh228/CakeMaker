@@ -37,12 +37,14 @@ public class StoreAction extends ActionSupport implements ServletRequestAware {
     
     public String create() throws Exception {
         boolean insert = controller.insert(this.getStore());
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
         if(insert == true) {
             this.addActionMessage("Create store success!");
             return SUCCESS;
         } else {
             this.addActionError("Have some error, please try again!");
-            return ERROR;
+            return INPUT;
         }
     }
     
@@ -55,6 +57,8 @@ public class StoreAction extends ActionSupport implements ServletRequestAware {
     
     public String update() {
         int update = controller.update(this.getStore());
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
         if(update != 0) {
             this.addActionMessage("Update store success!");
             return SUCCESS;
@@ -67,6 +71,8 @@ public class StoreAction extends ActionSupport implements ServletRequestAware {
     public String delete() {
         int cid = Integer.parseInt(request.getParameter("id"));
         int delete = controller.delete(cid);
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
         if(delete != 0) {
             this.addActionMessage("Delete store success!");
             return SUCCESS;

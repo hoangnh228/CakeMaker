@@ -37,7 +37,8 @@ public class DiscountAction extends ActionSupport implements ServletRequestAware
     
     public String create() throws Exception {
         boolean insert = controller.insert(this.getDiscount());
-        
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
         if(insert == true) {
             this.addActionMessage("Create discount success!");
             return SUCCESS;
@@ -56,6 +57,9 @@ public class DiscountAction extends ActionSupport implements ServletRequestAware
     
     public String update() {
         int update = controller.update(this.getDiscount());
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        
         if(update != 0) {
             this.addActionMessage("Update discount success!");
             return SUCCESS;
@@ -67,12 +71,23 @@ public class DiscountAction extends ActionSupport implements ServletRequestAware
     
     public String delete() {
         int cid = Integer.parseInt(request.getParameter("id"));
-        int delete = controller.delete(cid);
-        if(delete != 0) {
-            this.addActionMessage("Delete category success!");
-            return SUCCESS;
+        boolean check = controller.checkHasProduct(cid);
+        
+        if(check == false) {
+            int delete = controller.delete(cid);
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            if(delete != 0) {
+                this.addActionMessage("Delete category success!");
+                return SUCCESS;
+            } else {
+                this.addActionError("Have some error, please try again!");
+                return ERROR;
+            }
         } else {
-            this.addActionError("Have some error, please try again!");
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            this.addActionError("Have products in discount, please delete product first!");
             return ERROR;
         }
     }

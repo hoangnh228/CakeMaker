@@ -46,16 +46,20 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
         int n = rand.nextInt(99999) + 1;
         File fileToCreate = new File(filePath, n + "_" + this.getUploadFileName());  
         FileUtils.copyFile(this.getUpload(), fileToCreate);
-        Banner b = new Banner();
-        b.setUrl(n + "_" + this.getUploadFileName());
-        boolean insert = controller.insert(b);
+        banner = new Banner();
+        this.getBanner().setUrl(n + "_" + this.getUploadFileName());
+        boolean insert = controller.insert(this.getBanner());
         
         if(insert == true) {
-            this.addActionMessage("Create category success!");
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            this.addActionMessage("Upload banner success!");
             return SUCCESS;
         } else {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionError("Have some error, please try again!");
-            return ERROR;
+            return INPUT;
         }
     }
     
@@ -63,9 +67,13 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
         int cid = Integer.parseInt(request.getParameter("id"));
         int delete = controller.delete(cid);
         if(delete != 0) {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionMessage("Delete banner success!");
             return SUCCESS;
         } else {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionError("Have some error, please try again!");
             return ERROR;
         }

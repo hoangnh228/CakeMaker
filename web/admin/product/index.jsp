@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <s:include value="../head.jsp">
-        <s:param name="titlePage">Store manager</s:param>
+        <s:param name="titlePage">Product manager</s:param>
     </s:include>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -66,7 +66,7 @@
                                                     <td><s:property value="title"/></td>
                                                     <td><s:property value="category"/></td>
                                                     <td>$<s:property value="price"/></td>
-                                                    <td><s:property value="image"/></td>
+                                                    <td><img style="max-height: 100px" src="<s:url value="../public/upload/product/"/><s:property value="image"/>" /></td>
                                                     <td>
                                                         <s:if test="%{status}">
                                                             publish
@@ -79,7 +79,7 @@
                                                         <s:url id="editProduct" action="edit-product">
                                                             <s:param name="id" value="%{id}"></s:param>
                                                         </s:url>
-                                                        <s:a href="%{editStore}">Edit</s:a>
+                                                        <s:a href="%{editProduct}">Edit</s:a>
                                                         -
                                                         <s:url id="deleteProduct" action="delete-product">
                                                             <s:param name="id" value="%{id}"></s:param>
