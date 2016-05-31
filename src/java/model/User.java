@@ -20,13 +20,13 @@ public class User {
     private String email;
     private String phone;
     private int permission;
-    private boolean status;
+    private int status;
     private Date create_date;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String address, String email, String phone, int permission, boolean status, Date create_date) {
+    public User(int id, String username, String password, String address, String email, String phone, int permission, int status, Date create_date) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -94,11 +94,11 @@ public class User {
         this.permission = permission;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -109,6 +109,5 @@ public class User {
     public void setCreate_date(Date create_date) {
         this.create_date = create_date;
     }
-    
-    
+
 }

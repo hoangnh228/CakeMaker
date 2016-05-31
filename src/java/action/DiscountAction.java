@@ -37,9 +37,10 @@ public class DiscountAction extends ActionSupport implements ServletRequestAware
     
     public String create() throws Exception {
         boolean insert = controller.insert(this.getDiscount());
-        list = controller.getAll();
-        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        
         if(insert == true) {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionMessage("Create discount success!");
             return SUCCESS;
         } else {
@@ -57,13 +58,15 @@ public class DiscountAction extends ActionSupport implements ServletRequestAware
     
     public String update() {
         int update = controller.update(this.getDiscount());
-        list = controller.getAll();
-        ServletActionContext.getRequest().getSession().setAttribute("list", list);
         
         if(update != 0) {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionMessage("Update discount success!");
             return SUCCESS;
         } else {
+            Discount detail = controller.getById(this.discount.getId());
+            ServletActionContext.getRequest().getSession().setAttribute("discount", detail);
             this.addActionError("Have some error, please try again!");
             return INPUT;
         }
@@ -77,6 +80,7 @@ public class DiscountAction extends ActionSupport implements ServletRequestAware
             int delete = controller.delete(cid);
             list = controller.getAll();
             ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            
             if(delete != 0) {
                 this.addActionMessage("Delete category success!");
                 return SUCCESS;

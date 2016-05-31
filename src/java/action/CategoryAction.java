@@ -35,6 +35,7 @@ public class CategoryAction extends ActionSupport implements ServletRequestAware
     
     public String create() throws Exception {
         boolean insert = controller.insert(this.getCategory());
+        
         if(insert == true) {
             list = controller.getAll();
             ServletActionContext.getRequest().getSession().setAttribute("list", list);
@@ -55,14 +56,15 @@ public class CategoryAction extends ActionSupport implements ServletRequestAware
     
     public String update() {
         int update = controller.update(this.getCategory());
+        
         if(update != 0) {
             list = controller.getAll();
             ServletActionContext.getRequest().getSession().setAttribute("list", list);
             this.addActionMessage("Update category success!");
             return SUCCESS;
         } else {
-            list = controller.getAll();
-            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            Category detail = controller.getById(this.category.getId());
+            ServletActionContext.getRequest().getSession().setAttribute("category", detail);
             this.addActionError("Have some error, please try again!");
             return INPUT;
         }
@@ -76,6 +78,7 @@ public class CategoryAction extends ActionSupport implements ServletRequestAware
             int delete = controller.delete(cid);
             list = controller.getAll();
             ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            
             if(delete != 0) {
                 this.addActionMessage("Delete category success!");
                 return SUCCESS;

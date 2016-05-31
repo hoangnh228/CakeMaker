@@ -142,5 +142,27 @@
             <result name="success">/admin/product/index.jsp</result>
         </action>
         
+        <!-- user -->
+        <action name="user" class="action.UserAction" method="getAll">
+            <result name="success">/admin/user/index.jsp</result>
+        </action>
+        <action name="add-user">
+            <result name="success">/admin/user/add.jsp</result>
+        </action>
+        <action name="insert-user" class="action.UserAction" method="create">
+            <result name="success">/admin/user/index.jsp</result>
+            <result name="input">/admin/user/add.jsp</result>
+        </action>
+        <action name="edit-user" class="action.UserAction" method="getById">
+            <result name="success">/admin/user/edit.jsp</result>
+        </action>
+        <action name="update-user" class="action.UserAction" method="update">
+            <result name="success">/admin/user/index.jsp</result>
+            <result name="input">/admin/user/edit.jsp</result>
+        </action>
+        <action name="delete-user" class="action.UserAction" method="delete">
+            <result name="success">/admin/user/index.jsp</result>
+            <result name="error">/admin/user/index.jsp</result>
+        </action>
     </package>
 </struts>

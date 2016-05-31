@@ -81,7 +81,6 @@ public class ProductAction extends ActionSupport implements ServletRequestAware 
         dList = dController.getAll();
         int cid = Integer.parseInt(request.getParameter("id"));
         this.product = controller.getById(id);
-        System.out.println(this.product.getCategory_id());
         ServletActionContext.getRequest().getSession().setAttribute("product", this.product);
         return SUCCESS;
     }
@@ -109,6 +108,8 @@ public class ProductAction extends ActionSupport implements ServletRequestAware 
         } else {
             cList = cController.getAll();
             dList = dController.getAll();
+            Product detail = controller.getById(this.product.getId());
+            ServletActionContext.getRequest().getSession().setAttribute("product", detail);
             this.addActionError("Have some error, please try again!");
             return INPUT;
         }
@@ -117,10 +118,11 @@ public class ProductAction extends ActionSupport implements ServletRequestAware 
     public String delete() {
         int cid = Integer.parseInt(request.getParameter("id"));
         int delete = controller.delete(cid);
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            
         if(delete != 0) {
             this.addActionMessage("Delete product success!");
-            list = controller.getAll();
-            ServletActionContext.getRequest().getSession().setAttribute("list", list);
             return SUCCESS;
         } else {
             this.addActionError("Have some error, please try again!");

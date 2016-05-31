@@ -6,33 +6,28 @@
 package action;
 
 import static com.opensymphony.xwork2.Action.ERROR;
+import static com.opensymphony.xwork2.Action.INPUT;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
-import controller.BannerController;
-import java.io.File;
+import controller.UserController;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
-import model.Banner;
-import org.apache.commons.io.FileUtils;
+import model.User;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
- * @author Orange
+ * @author cam
  */
-public class BannerAction extends ActionSupport implements ServletRequestAware {
+public class UserAction extends ActionSupport implements ServletRequestAware {
     
-    private Banner banner;
-    private final BannerController controller;
+    private User user;
+    private final UserController controller;
     private int id;
-    private List<Banner> list = new ArrayList<>();
+    private List<User> list = new ArrayList<>();
     private HttpServletRequest request;
-    private File upload;
-    private String uploadFileName;
-    private String uploadContentType;
     
     public String getAll() {
         list = controller.getAll();
@@ -41,21 +36,37 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
     }
     
     public String create() throws Exception {
-        String filePath = request.getSession().getServletContext().getRealPath("/").concat("public\\upload\\banner");
-        Random rand = new Random();
-        int n = rand.nextInt(99999) + 1;
-        File fileToCreate = new File(filePath, n + "_" + this.getUploadFileName());  
-        FileUtils.copyFile(this.getUpload(), fileToCreate);
-        banner = new Banner();
-        this.getBanner().setUrl(n + "_" + this.getUploadFileName());
-        boolean insert = controller.insert(this.getBanner());
+        boolean insert = controller.insert(this.getUser());
         
         if(insert == true) {
             list = controller.getAll();
             ServletActionContext.getRequest().getSession().setAttribute("list", list);
-            this.addActionMessage("Upload banner success!");
+            this.addActionMessage("Create user success!");
             return SUCCESS;
         } else {
+            this.addActionError("Have some error, please try again!");
+            return INPUT;
+        }
+    }
+    
+    public String getById() {
+        int cid = Integer.parseInt(request.getParameter("id"));
+        User detail = controller.getById(id);
+        ServletActionContext.getRequest().getSession().setAttribute("user", detail);
+        return SUCCESS;
+    }
+    
+    public String update() {
+        int update = controller.update(this.getUser());
+        
+        if(update != 0) {
+            list = controller.getAll();
+            ServletActionContext.getRequest().getSession().setAttribute("list", list);
+            this.addActionMessage("Update user success!");
+            return SUCCESS;
+        } else {
+            User detail = controller.getById(this.user.getId());
+            ServletActionContext.getRequest().getSession().setAttribute("user", detail);
             this.addActionError("Have some error, please try again!");
             return INPUT;
         }
@@ -68,7 +79,7 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
         ServletActionContext.getRequest().getSession().setAttribute("list", list);
         
         if(delete != 0) {
-            this.addActionMessage("Delete banner success!");
+            this.addActionMessage("Delete category success!");
             return SUCCESS;
         } else {
             this.addActionError("Have some error, please try again!");
@@ -76,16 +87,16 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
         }
     }
     
-    public BannerAction() {
-        controller = new BannerController();
+    public UserAction() {
+        controller = new UserController();
     }
 
-    public Banner getBanner() {
-        return banner;
+    public User getUser() {
+        return user;
     }
 
-    public void setBanner(Banner banner) {
-        this.banner = banner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {
@@ -96,41 +107,17 @@ public class BannerAction extends ActionSupport implements ServletRequestAware {
         this.id = id;
     }
 
-    public List<Banner> getList() {
+    public List<User> getList() {
         return list;
     }
 
-    public void setList(List<Banner> list) {
+    public void setList(List<User> list) {
         this.list = list;
-    }
-
-    public File getUpload() {
-        return upload;
-    }
-
-    public void setUpload(File upload) {
-        this.upload = upload;
-    }
-
-    public String getUploadFileName() {
-        return uploadFileName;
-    }
-
-    public void setUploadFileName(String uploadFileName) {
-        this.uploadFileName = uploadFileName;
-    }
-
-    public String getUploadContentType() {
-        return uploadContentType;
-    }
-
-    public void setUploadContentType(String uploadContentType) {
-        this.uploadContentType = uploadContentType;
     }
 
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
     }
-    
+
 }
