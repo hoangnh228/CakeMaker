@@ -1,4 +1,5 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div id="header">
     <div class="logo">
         <a href="#"><img src="public/images/logo.jpg" alt="" width="241" height="104"/></a>
@@ -57,21 +58,9 @@
         <div id="dropMenuWrapper">
             <div id="dropMenu">
                 <ul class="level1">
-                    <li class="submenu">
-                        <a href="#">MEAT</a>
-                        <ul class="level2">
-                            <li>
-                                <a href="#">Lorem ipsum</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#">SEAFOOD</a></li>
-                    <li><a href="#">ENTREES</a></li>
-                    <li><a href="#">PIZZA &amp; PASTA</a></li>
-                    <li><a href="#">SIDE DISHES</a></li>
-                    <li><a href="#">APPETIZERS</a></li>
-                    <li><a href="#">SNACKS</a></li>
-                    <li><a href="#">ICE CREAM</a></li>
+                    <c:forEach items="${sessionScope.menu}" var="item">
+                        <li><a href="<s:url action="category?id=" />${item.id}">${item.title}</a></li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
@@ -98,9 +87,9 @@
     </script>
     <div class="slider-wrapper theme-default">
         <div id="slider" class="nivoSlider">
-            <a href="#"><img src="public/images/banner2.jpg" alt="" width="1024" height="376"/></a>
-            <a href="#"><img src="public/images/banner3.jpg" alt="" width="1024" height="376"/></a>
-            <a href="#"><img src="public/images/banner4.jpg" alt="" width="1024" height="376"/></a> 
+            <c:forEach items="${sessionScope.slider}" var="item">
+                <a href="#"><img src="public/upload/banner/${item.url}" alt="" width="1024" height="376"/></a>
+            </c:forEach>
         </div>
     </div>
 </div>
