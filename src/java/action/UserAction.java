@@ -8,10 +8,12 @@ package action;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.INPUT;
 import static com.opensymphony.xwork2.Action.SUCCESS;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import controller.UserController;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import model.User;
 import org.apache.struts2.ServletActionContext;
@@ -30,15 +32,65 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
     private HttpServletRequest request;
     
     public String userRegister() {
-        boolean insert = controller.userRegister(this.getUser());
+        boolean check = controller.checkUsernameExist(this.user.getUsername());
         
-        if(insert == true) {
-            this.addActionMessage("Register success, now you can login as an user!");
+        if(check == false) {
+            boolean insert = controller.userRegister(this.getUser());
+
+            if(insert == true) {
+                this.addActionMessage("Register success, now you can login as an user!");
+                return SUCCESS;
+            } else {
+                this.addActionError("Have some error, please try again!");
+                return INPUT;
+            }
+        } else {
+            this.addActionError("Username exists, please use other username!");
+            return INPUT;
+        }
+    }
+    
+    public String userProfile() {
+        Map session = ActionContext.getContext().getSession();
+        User detail = controller.getById((int) session.get("userId"));
+        ServletActionContext.getRequest().getSession().setAttribute("user", detail);
+        return SUCCESS;
+    }
+    
+    public String userUpdateProfile() {
+        int update = controller.updateProfile(this.getUser());
+        User detail = controller.getById(this.user.getId());
+        ServletActionContext.getRequest().getSession().setAttribute("user", detail);
+        
+        if(update != 0) {
+            this.addActionMessage("Update profile success!");
             return SUCCESS;
         } else {
             this.addActionError("Have some error, please try again!");
             return INPUT;
         }
+    }
+    
+    public String userLogin() {
+        User login = controller.userLogin(this.user.getUsername(), this.user.getPassword());
+        
+        if(login != null) {
+            Map session = ActionContext.getContext().getSession();
+            session.put("userId", login.getId());
+            session.put("userName", login.getUsername());
+        } else {
+            this.addActionError("Have some error, please try again!");
+            return INPUT;
+        }
+        
+        return SUCCESS;
+    }
+    
+    public String userLogout() {
+        Map session = ActionContext.getContext().getSession();
+        session.remove("userId");
+        session.remove("userName");
+        return SUCCESS;
     }
     
     public String getAll() {
@@ -48,15 +100,22 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
     }
     
     public String create() throws Exception {
-        boolean insert = controller.insert(this.getUser());
+        boolean check = controller.checkUsernameExist(this.user.getUsername());
         
-        if(insert == true) {
-            list = controller.getAll();
-            ServletActionContext.getRequest().getSession().setAttribute("list", list);
-            this.addActionMessage("Create user success!");
-            return SUCCESS;
+        if(check == false) {
+            boolean insert = controller.insert(this.getUser());
+
+            if(insert == true) {
+                list = controller.getAll();
+                ServletActionContext.getRequest().getSession().setAttribute("list", list);
+                this.addActionMessage("Create user success!");
+                return SUCCESS;
+            } else {
+                this.addActionError("Have some error, please try again!");
+                return INPUT;
+            }
         } else {
-            this.addActionError("Have some error, please try again!");
+            this.addActionError("Username exists!");
             return INPUT;
         }
     }

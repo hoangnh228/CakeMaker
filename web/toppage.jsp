@@ -34,14 +34,18 @@
                 </li>
             </ul>
             <ul style="float: right;">
-                <li><a href="<s:url action="login" />">Login</a></li>
-                <li><a href="<s:url action="register" />">Register</a></li>
+                <s:if test="#session.userId">
+                    <li><a href="#">Welcome, <s:property value="#session.userName" /></a></li>
+                    <li><a href="<s:url action="profile" />">Profile</a></li>
+                    <li><a href="<s:url action="logout" />">Logout</a></li>
+                </s:if>
+                <s:else>
+                    <li><a href="<s:url action="login" />">Login</a></li>
+                    <li><a href="<s:url action="register" />">Register</a></li>
+                </s:else>
             </ul>
         </div>
     </div>
-<!--    <div class="lang navigation" style="left: inherit; width: 200px;">
-        
-    </div>-->
     <div class="cart">
         <a class="st1" href="#"><span>Shopping cart:</span></a><a class="on"><span class="count">0</span> items</a>
         <div class="none"> Your cart is empty.</div>

@@ -9,13 +9,24 @@
     <package name="default" namespace="/" extends="struts-default">
         <interceptors>
             <interceptor name="clientInterceptor" class="interceptor.ClientInterceptor"></interceptor>
+            <interceptor name="clientLoginInterceptor" class="interceptor.UserLoginInterceptor"></interceptor>
+            <interceptor name="clientHaveToLoginInterceptor" class="interceptor.UserHaveToLoginInterceptor"></interceptor>
             <interceptor-stack name="globalStack">
                 <interceptor-ref name="clientInterceptor" />
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
+            <interceptor-stack name="loginStack">
+                <interceptor-ref name="clientLoginInterceptor" />
+            </interceptor-stack>
+            <interceptor-stack name="haveToLoginStack">
+                <interceptor-ref name="clientHaveToLoginInterceptor" />
+            </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="globalStack"/>
         <action name="*">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="index">
             <result name="success">index.jsp</result>
         </action>
         <action name="contact-us">
@@ -26,16 +37,43 @@
             <result name="input">contact.jsp</result>
         </action>
         
-         <!-- user -->
-         <action name="login">
+        <!-- user -->
+        <action name="login">
+            <interceptor-ref name="loginStack" />
             <result name="success">login.jsp</result>
+            <result name="none" type="redirectAction">index</result>
         </action>
         <action name="register">
+            <interceptor-ref name="loginStack" />
             <result name="success">register.jsp</result>
+            <result name="none" type="redirectAction">index</result>
+        </action>
+        <action name="profile" class="action.UserAction" method="userProfile">
+            <interceptor-ref name="haveToLoginStack" />
+            <result name="success">profile.jsp</result>
+            <result name="error">index.jsp</result>
+            <result name="login" type="redirectAction">login</result>
         </action>
         <action name="go-register" class="action.UserAction" method="userRegister">
+            <interceptor-ref name="loginStack" />
             <result name="success">login.jsp</result>
             <result name="input">register.jsp</result>
+            <result name="none" type="redirectAction">index</result>
+        </action>
+        <action name="go-login" class="action.UserAction" method="userLogin">
+            <result name="success" type="redirectAction">index</result>
+            <result name="input">login.jsp</result>
+        </action>
+        <action name="go-profile" class="action.UserAction" method="userUpdateProfile">
+            <interceptor-ref name="haveToLoginStack" />
+            <result name="success">profile.jsp</result>
+            <result name="input">profile.jsp</result>
+            <result name="login" type="redirectAction">login</result>
+        </action>
+        <action name="logout" class="action.UserAction" method="userLogout">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="redirectAction">index</result>
+            <result name="none" type="redirectAction">index</result>
         </action>
     </package>
     
