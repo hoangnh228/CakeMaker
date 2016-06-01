@@ -3,14 +3,15 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <constant name="struts.devMode" value="false" />
+    <constant name="struts.devMode" value="true" />
     
     <!-- Configuration for the default package. -->
     <package name="default" namespace="/" extends="struts-default">
         <interceptors>
             <interceptor name="clientInterceptor" class="interceptor.ClientInterceptor"></interceptor>
             <interceptor-stack name="globalStack">
-                <interceptor-ref name="clientInterceptor"/>
+                <interceptor-ref name="clientInterceptor" />
+                <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="globalStack"/>
@@ -23,6 +24,18 @@
         <action name="send-feedback" class="action.FeedbackAction" method="sendFeedback">
             <result name="success">contact.jsp</result>
             <result name="input">contact.jsp</result>
+        </action>
+        
+         <!-- user -->
+         <action name="login">
+            <result name="success">login.jsp</result>
+        </action>
+        <action name="register">
+            <result name="success">register.jsp</result>
+        </action>
+        <action name="go-register" class="action.UserAction" method="userRegister">
+            <result name="success">login.jsp</result>
+            <result name="input">register.jsp</result>
         </action>
     </package>
     

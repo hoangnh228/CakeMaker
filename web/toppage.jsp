@@ -1,12 +1,13 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <div id="header">
     <div class="logo">
         <a href="#"><img src="public/images/logo.jpg" alt="" width="241" height="104"/></a>
     </div>
-    <div class="menu">
+    <div class="menu" style="width: 100%;">
         <div id="navEZPagesTop">
-            <ul>
+            <ul style="display: inline-block;">
                 <li class="selected  first">
                     <a href="<s:url value="/" />">
                     <span class="corner"></span>
@@ -32,11 +33,15 @@
                     </a>
                 </li>
             </ul>
+            <ul style="float: right;">
+                <li><a href="<s:url action="login" />">Login</a></li>
+                <li><a href="<s:url action="register" />">Register</a></li>
+            </ul>
         </div>
     </div>
-    <div class="lang navigation" style="left: inherit">
-	<a href="#">Login</a>  
-    </div>
+<!--    <div class="lang navigation" style="left: inherit; width: 200px;">
+        
+    </div>-->
     <div class="cart">
         <a class="st1" href="#"><span>Shopping cart:</span></a><a class="on"><span class="count">0</span> items</a>
         <div class="none"> Your cart is empty.</div>
@@ -58,7 +63,7 @@
         <div id="dropMenuWrapper">
             <div id="dropMenu">
                 <ul class="level1">
-                    <c:forEach items="${sessionScope.menu}" var="item">
+                    <c:forEach items="${menu}" var="item">
                         <li><a href="<s:url action="category?id=" />${item.id}">${item.title}</a></li>
                     </c:forEach>
                 </ul>

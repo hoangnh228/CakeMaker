@@ -92,6 +92,26 @@ public class UserController {
         return result;
     }
     
+    public boolean userRegister(User u) {
+        boolean result = false;
+        String sql = "insert into users values(?, ?, ?, ?, ?, 0, 1, GETDATE())";
+        
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setString(1, u.getUsername());
+            ps.setString(2, u.getPassword());
+            ps.setString(3, u.getAddress());
+            ps.setString(4, u.getEmail());
+            ps.setString(5, u.getPhone());
+            int executeUpdate = ps.executeUpdate();
+            result = executeUpdate > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
     public int update(User u) {
         int records = 0;
         String sql = "update users set address = ?, email = ?, phone = ?, permission = ?, status = ? where id = ?";

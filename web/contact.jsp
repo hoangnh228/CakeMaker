@@ -23,7 +23,7 @@
                                     </s:if>
                                     <div class="tie text2">
                                         <div class="tie-indent">
-                                            <form name="feedback" action="<s:url value="/send-feedback" />" method="post">
+                                            <form name="feedback" action="<s:url action="send-feedback" />" method="post">
                                                 <address>Customer Service: +1 800 559 6580<br>9870 St Vincent Place,<br>Glasgow, DC 45 Fr 45.<br></address>
                                                 <div id="contactUsNoticeContent" class="content">
                                                     <p><strong>Welcome to Cake Maker ...</strong></p>

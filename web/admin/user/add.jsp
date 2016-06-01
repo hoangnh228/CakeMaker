@@ -79,11 +79,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="permission" class="col-sm-3 control-label">Status</label>
+                                            <label for="permission" class="col-sm-3 control-label">Permission</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" name="user.permission" id="permission">
-                                                    <option value="1">Admin</option>
                                                     <option value="0">User</option>
+                                                    <option value="1">Admin</option>
                                                 </select>
                                             </div>
                                         </div>
