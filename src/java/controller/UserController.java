@@ -66,6 +66,27 @@ public class UserController {
         return user;
     }
     
+    public User adminLogin(String username, String password) {
+        User user = null;
+        String sql = "select * from users where username = ? and password = ? and permission = 1 and status = 1";
+        
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return user;
+    }
+    
     public boolean checkUsernameExist(String username) {
         boolean check = false;
         String sql = "select * from users where username = ?";

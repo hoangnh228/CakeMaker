@@ -57,6 +57,13 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
         return SUCCESS;
     }
     
+    public String adminProfile() {
+        Map session = ActionContext.getContext().getSession();
+        User detail = controller.getById((int) session.get("adminId"));
+        ServletActionContext.getRequest().getSession().setAttribute("user", detail);
+        return SUCCESS;
+    }
+    
     public String userUpdateProfile() {
         int update = controller.updateProfile(this.getUser());
         User detail = controller.getById(this.user.getId());
@@ -83,6 +90,27 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
             return INPUT;
         }
         
+        return SUCCESS;
+    }
+    
+    public String adminLogin() {
+        User login = controller.adminLogin(this.user.getUsername(), this.user.getPassword());
+        if(login != null) {
+            Map session = ActionContext.getContext().getSession();
+            session.put("adminId", login.getId());
+            session.put("adminName", login.getUsername());
+        } else {
+            this.addActionError("Invalid username or password!");
+            return INPUT;
+        }
+        
+        return SUCCESS;
+    }
+    
+    public String adminLogout() {
+        Map session = ActionContext.getContext().getSession();
+        session.remove("adminId");
+        session.remove("adminName");
         return SUCCESS;
     }
     

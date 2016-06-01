@@ -21,16 +21,16 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-gears"></i> &nbsp
-                        <span class="hidden-xs">Hi, Alexander Pierce</span>
+                        <span class="hidden-xs">Hi, <s:property value="#session.adminName" /></span>
                     </a>
                     <ul class="dropdown-menu" style="width: 170px;">
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="<s:url value="/admin/profile" />" class="btn btn-default btn-flat">Profile</a>
+                                <a href="<s:url action="profile" />" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="<s:url value="/admin/logout" />" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="<s:url action="logout" />" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

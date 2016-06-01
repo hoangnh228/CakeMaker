@@ -22,7 +22,9 @@
                 <interceptor-ref name="clientHaveToLoginInterceptor" />
             </interceptor-stack>
         </interceptors>
+        
         <default-interceptor-ref name="globalStack"/>
+        
         <action name="*">
             <result name="success">index.jsp</result>
         </action>
@@ -79,47 +81,97 @@
     
     <!-- Configuration for the admin package. -->
     <package name="admin" namespace="/admin" extends="struts-default">
+        <interceptors>
+            <interceptor name="adminInterceptor" class="interceptor.AdminInterceptor"></interceptor>
+            <interceptor-stack name="adminStack">
+                <interceptor-ref name="adminInterceptor" />
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        
+        <global-results>
+            <result name="login">/admin/login.jsp</result>
+        </global-results>
+        
         <action name="*">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/index.jsp</result>
+        </action>
+        <action name="index">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/index.jsp</result>
+        </action>
+        <action name="login">
+            <result name="success">/admin/login.jsp</result>
+        </action>
+        <action name="go-login" class="action.UserAction" method="adminLogin">
+            <result name="success" type="redirectAction">index</result>
+            <result name="error">/admin/login.jsp</result>
+            <result name="input">/admin/login.jsp</result>
+        </action>
+        <action name="profile" class="action.UserAction" method="adminProfile">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/profile.jsp</result>
+            <result name="error">/admin/index.jsp</result>
+        </action>
+        <action name="go-profile" class="action.UserAction" method="userUpdateProfile">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/profile.jsp</result>
+            <result name="input">/admin/profile.jsp</result>
+            <result name="error">/admin/profile.jsp</result>
+        </action>
+        <action name="logout" class="action.UserAction" method="adminLogout">
+            <interceptor-ref name="adminStack" />
+            <result name="success" type="redirectAction">login</result>
         </action>
         
         <!-- feedback -->
         <action name="feedback" class="action.FeedbackAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/feedback/index.jsp</result>
         </action>
         <action name="delete-feedback" class="action.FeedbackAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/feedback/index.jsp</result>
             <result name="error">/admin/feedback/index.jsp</result>
         </action>
         
         <!-- category -->
         <action name="category" class="action.CategoryAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/category/index.jsp</result>
         </action>
         <action name="add-category">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/category/add.jsp</result>
         </action>
         <action name="insert-category" class="action.CategoryAction" method="create">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/category/index.jsp</result>
             <result name="input">/admin/category/add.jsp</result>
         </action>
         <action name="edit-category" class="action.CategoryAction" method="getById">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/category/edit.jsp</result>
         </action>
         <action name="update-category" class="action.CategoryAction" method="update">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/category/index.jsp</result>
             <result name="input">/admin/category/edit.jsp</result>
         </action>
         <action name="delete-category" class="action.CategoryAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/category/index.jsp</result>
             <result name="error">/admin/category/index.jsp</result>
         </action>
         
         <!-- banner -->
         <action name="banner" class="action.BannerAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/banner/index.jsp</result>
         </action>
          <action name="upload-banner" class="action.BannerAction" method="create">  
+            <interceptor-ref name="adminStack" />
             <interceptor-ref name="fileUpload">
                 <param name="maximumSize">2097152</param>
                 <param name="allowedTypes">image/png,image/gif,image/jpeg,image/pjpeg</param>  
@@ -129,96 +181,121 @@
             <result name="input">/admin/banner/index.jsp</result> 
         </action>
         <action name="delete-banner" class="action.BannerAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/banner/index.jsp</result>
         </action>
         
         <!-- discount -->
         <action name="discount" class="action.DiscountAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/discount/index.jsp</result>
         </action>
         <action name="add-discount">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/discount/add.jsp</result>
         </action>
         <action name="insert-discount" class="action.DiscountAction" method="create">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/discount/index.jsp</result>
             <result name="input">/admin/discount/add.jsp</result>
         </action>
         <action name="edit-discount" class="action.DiscountAction" method="getById">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/discount/edit.jsp</result>
         </action>
         <action name="update-discount" class="action.DiscountAction" method="update">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/discount/index.jsp</result>
             <result name="input">/admin/discount/edit.jsp</result>
         </action>
         <action name="delete-discount" class="action.DiscountAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/discount/index.jsp</result>
             <result name="error">/admin/discount/index.jsp</result>
         </action>
         
         <!-- store -->
         <action name="store" class="action.StoreAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/store/index.jsp</result>
         </action>
         <action name="add-store">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/store/add.jsp</result>
         </action>
         <action name="insert-store" class="action.StoreAction" method="create">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/store/index.jsp</result>
             <result name="input">/admin/store/add.jsp</result>
         </action>
         <action name="edit-store" class="action.StoreAction" method="getById">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/store/edit.jsp</result>
         </action>
         <action name="update-store" class="action.StoreAction" method="update">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/store/index.jsp</result>
             <result name="input">/admin/store/edit.jsp</result>
         </action>
         <action name="delete-store" class="action.StoreAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/store/index.jsp</result>
             <result name="error">/admin/store/index.jsp</result>
         </action>
         
         <!-- product -->
         <action name="product" class="action.ProductAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/product/index.jsp</result>
         </action>
         <action name="add-product" class="action.ProductAction" method="createForm">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/product/add.jsp</result>
         </action>
         <action name="insert-product" class="action.ProductAction" method="create">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/product/index.jsp</result>
             <result name="input">/admin/product/add.jsp</result>
         </action>
         <action name="edit-product" class="action.ProductAction" method="getById">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/product/edit.jsp</result>
         </action>
         <action name="update-product" class="action.ProductAction" method="update">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/product/index.jsp</result>
             <result name="input">/admin/product/edit.jsp</result>
         </action>
         <action name="delete-product" class="action.ProductAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/product/index.jsp</result>
         </action>
         
         <!-- user -->
         <action name="user" class="action.UserAction" method="getAll">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/user/index.jsp</result>
         </action>
         <action name="add-user">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/user/add.jsp</result>
         </action>
         <action name="insert-user" class="action.UserAction" method="create">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/user/index.jsp</result>
             <result name="input">/admin/user/add.jsp</result>
         </action>
         <action name="edit-user" class="action.UserAction" method="getById">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/user/edit.jsp</result>
         </action>
         <action name="update-user" class="action.UserAction" method="update">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/user/index.jsp</result>
             <result name="input">/admin/user/edit.jsp</result>
         </action>
         <action name="delete-user" class="action.UserAction" method="delete">
+            <interceptor-ref name="adminStack" />
             <result name="success">/admin/user/index.jsp</result>
             <result name="error">/admin/user/index.jsp</result>
         </action>
