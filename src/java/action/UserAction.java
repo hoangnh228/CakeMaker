@@ -29,6 +29,18 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
     private List<User> list = new ArrayList<>();
     private HttpServletRequest request;
     
+    public String userRegister() {
+        boolean insert = controller.userRegister(this.getUser());
+        
+        if(insert == true) {
+            this.addActionMessage("Register success, now you can login as an user!");
+            return SUCCESS;
+        } else {
+            this.addActionError("Have some error, please try again!");
+            return INPUT;
+        }
+    }
+    
     public String getAll() {
         list = controller.getAll();
         ServletActionContext.getRequest().getSession().setAttribute("list", list);

@@ -7,7 +7,6 @@ package interceptor;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.opensymphony.xwork2.interceptor.Interceptor;
 import controller.BannerController;
 import controller.CategoryController;
 import java.util.List;
