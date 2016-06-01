@@ -28,9 +28,9 @@
                                                 <fieldset class="first">
                                                     <legend>Returning Customers: Please Log In</legend>
                                                     <label class="inputLabel" for="username">Username:</label>
-                                                    <input type="text" name="email_address" size = "41" maxlength= "96" id="username" /><br class="clearBoth" />
+                                                    <input type="text" name="user.username" size = "41" maxlength= "96" id="username" /><br class="clearBoth" />
                                                     <label class="inputLabel" for="password">Password:</label>
-                                                    <input type="password" name="password" size = "41" maxlength = "40" id="password" /><br class="clearBoth" />
+                                                    <input type="password" name="user.password" size = "41" maxlength = "40" id="password" /><br class="clearBoth" />
                                                 </fieldset>
                                                 <div class="buttonRow back"><input class="cssButton button_login" onmouseover="this.className='cssButtonHover button_login button_loginHover'" onmouseout="this.className='cssButton button_login'" type="submit" value="Sign In" style="width: 80px;" /></div>
                                                 <div class="buttonRow back">&nbsp; &nbsp; &nbsp;<a  class="forgot_pass" href="#">Forgot your password?</a></div>

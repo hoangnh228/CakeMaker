@@ -45,6 +45,43 @@ public class UserController {
         return list;
     }
     
+    public User userLogin(String username, String password) {
+        User user = null;
+        String sql = "select * from users where username = ? and password = ? and status = 1";
+        
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return user;
+    }
+    
+    public boolean checkUsernameExist(String username) {
+        boolean check = false;
+        String sql = "select * from users where username = ?";
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                check = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DiscountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check;
+    }
+    
     public User getById(int id) {
         User user = null;
         String sql = "select * from users where id = ?";
@@ -123,6 +160,22 @@ public class UserController {
             ps.setInt(4, u.getPermission());
             ps.setInt(5, u.getStatus());
             ps.setInt(6, u.getId());
+            records = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return records;
+    }
+    
+    public int updateProfile(User u) {
+        int records = 0;
+        String sql = "update users set address = ?, email = ?, phone = ? where id = ?";
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setString(1, u.getAddress());
+            ps.setString(2, u.getEmail());
+            ps.setString(3, u.getPhone());
+            ps.setInt(4, u.getId());
             records = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
