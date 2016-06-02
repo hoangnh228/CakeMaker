@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="cart">
-        <a class="st1" href="#"><span>Shopping cart:</span></a><a class="on"><span class="count">0</span> items</a>
+        <a class="st1" href="<s:url action="cart" />"><span>Shopping cart:</span></a><a class="on"><span class="count">${cart_total}</span> items</a>
     </div>
     <div id="head-search">
         <form name="search" action="<s:url action="search" />" method="get">
