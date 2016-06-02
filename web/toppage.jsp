@@ -48,14 +48,10 @@
     </div>
     <div class="cart">
         <a class="st1" href="#"><span>Shopping cart:</span></a><a class="on"><span class="count">0</span> items</a>
-        <div class="none"> Your cart is empty.</div>
     </div>
     <div id="head-search">
-        <form name="quick_find_header" action="#" method="get">
+        <form name="search" action="<s:url action="search" />" method="get">
             <div>
-                <input type="hidden" name="main_page" value="advanced_search_result"/>
-                <input type="hidden" name="search_in_description" value="1"/>
-                <input type="hidden" name="zenid" value="80qi25kjf9b5ju95uuu1r9rhc1"/>
                 <input type="text" name="keyword" size="18" class="input1" maxlength="100" style="width: -30px"/>
                 <span class="input2">
                     <input class="cssButton search" onmouseover="this.className = 'cssButtonHover search searchHover'" onmouseout="this.className = 'cssButton search'" type="submit" value="Search" style="width: 80px;"/>

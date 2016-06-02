@@ -52,6 +52,115 @@ public class ProductController {
         return list;
     }
     
+    public List getProductClient(int limit) {
+        List list = new ArrayList<>();
+        String sql = "";
+        
+        if(limit > 0) {
+            sql = "select top (?) products.*, categories.title as category, discounts.title as discount from products "
+                + " inner join categories on categories.id = products.category_id "
+                + " inner join discounts on discounts.id = products.discount_id where products.status = 1;";
+        } else {
+            sql = "select products.*, categories.title as category, discounts.title as discount from products "
+                + " inner join categories on categories.id = products.category_id "
+                + " inner join discounts on discounts.id = products.discount_id  where products.status = 1";
+        }
+
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            
+            if(limit > 0) {
+                ps.setInt(1, limit);
+            }
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setPrice(rs.getFloat("price"));
+                p.setImage(rs.getString("image"));
+                p.setShort_description(rs.getString("short_description"));
+                p.setFull_description(rs.getString("full_description"));
+                p.setCreate_date(rs.getDate("create_date"));
+                p.setView_count(rs.getInt("view_count"));
+                p.setStatus(rs.getInt("status"));
+                p.setCategory(rs.getString("category"));
+                p.setDiscount(rs.getString("discount"));
+                list.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+    public List getProductByCategory(int id) {
+        List list = new ArrayList<>();
+        String sql = "select products.*, categories.title as category, discounts.title as discount from products "
+                + " inner join categories on categories.id = products.category_id "
+                + " inner join discounts on discounts.id = products.discount_id where products.status = 1 and products.category_id = ?";
+       
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setPrice(rs.getFloat("price"));
+                p.setImage(rs.getString("image"));
+                p.setShort_description(rs.getString("short_description"));
+                p.setFull_description(rs.getString("full_description"));
+                p.setCreate_date(rs.getDate("create_date"));
+                p.setView_count(rs.getInt("view_count"));
+                p.setStatus(rs.getInt("status"));
+                p.setCategory(rs.getString("category"));
+                p.setDiscount(rs.getString("discount"));
+                list.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+    public List searchProduct(String k) {
+        List list = new ArrayList<>();
+        String sql = "select products.*, categories.title as category, discounts.title as discount from products "
+                + " inner join categories on categories.id = products.category_id "
+                + " inner join discounts on discounts.id = products.discount_id where products.status = 1 and products.title like '%"+ k +"%'";
+       
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setPrice(rs.getFloat("price"));
+                p.setImage(rs.getString("image"));
+                p.setShort_description(rs.getString("short_description"));
+                p.setFull_description(rs.getString("full_description"));
+                p.setCreate_date(rs.getDate("create_date"));
+                p.setView_count(rs.getInt("view_count"));
+                p.setStatus(rs.getInt("status"));
+                p.setCategory(rs.getString("category"));
+                p.setDiscount(rs.getString("discount"));
+                list.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StoreController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
     public Product getById(int id) {
         Product product = null;
         String sql = "select * from products where id = ?";

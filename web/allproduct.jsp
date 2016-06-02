@@ -15,7 +15,7 @@
                             <div class="column-center-padding">
                                 <div class="centerColumn" id="indexDefault">
                                     <div class="centerBoxWrapper" id="featuredProducts">
-                                        <h2 class="centerBoxHeading">Products</h2>
+                                        <h2 class="centerBoxHeading">All Products</h2>
                                         <s:iterator value="list">
                                             <div class="centerBoxContentsFeatured centeredContent back" style="width:33%;">
                                                 <div class="product-col">

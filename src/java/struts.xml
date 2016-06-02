@@ -3,7 +3,7 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
     
     <!-- Configuration for the default package. -->
     <package name="default" namespace="/" extends="struts-default">
@@ -25,11 +25,23 @@
         
         <default-interceptor-ref name="globalStack"/>
         
-        <action name="*">
+        <action name="*" class="action.ProductAction" method="indexProduct">
             <result name="success">index.jsp</result>
         </action>
-        <action name="index">
+        <action name="index" class="action.ProductAction" method="indexProduct">
             <result name="success">index.jsp</result>
+        </action>
+        <action name="product" class="action.ProductAction" method="indexAllProduct">
+            <result name="success">allproduct.jsp</result>
+        </action>
+        <action name="category" class="action.ProductAction" method="categoryProduct">
+            <result name="success">category.jsp</result>
+        </action>
+        <action name="search" class="action.ProductAction" method="searchProduct">
+            <result name="success">search.jsp</result>
+        </action>
+        <action name="product-detail" class="action.ProductAction" method="getById">
+            <result name="success">detail.jsp</result>
         </action>
         <action name="contact-us">
             <result name="success">contact.jsp</result>
