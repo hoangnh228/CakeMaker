@@ -48,6 +48,36 @@ public class ProductAction extends ActionSupport implements ServletRequestAware 
         return SUCCESS;
     }
     
+    public String indexProduct() {
+        list = controller.getProductClient(6);
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        return SUCCESS;
+    }
+    
+    public String indexAllProduct() {
+        list = controller.getProductClient(0);
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        return SUCCESS;
+    }
+    
+    public String categoryProduct() {
+        int cid = Integer.parseInt(request.getParameter("id"));
+        list = controller.getProductByCategory(cid);
+        String title = list.get(0).getCategory();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        ServletActionContext.getRequest().getSession().setAttribute("name", title);
+        return SUCCESS;
+    }
+    
+    public String searchProduct() {
+        String kw = request.getParameter("keyword");
+        list = controller.searchProduct(kw);
+        String title = kw;
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        ServletActionContext.getRequest().getSession().setAttribute("name", title);
+        return SUCCESS;
+    }
+    
     public String createForm() {
         cList = cController.getAll();
         dList = dController.getAll();

@@ -1,3 +1,5 @@
+<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <td id="column_right" style="width:241px">
     <div style="width:241px;">
         <div class="box " id="specials" style="width:241px;">
@@ -23,11 +25,9 @@
                 <div id="bestsellersContent" class="sideBoxContent">
                     <div class="wrapper">
                         <ol>
-                            <li><a class="screenshot" rel="images/36.jpg" href="#">Ctetur sit amet cons...</a></li>
-                            <li><a class="screenshot" rel="images/21.jpg" href="#">Floridinos Calzone...</a></li>
-                            <li><a class="screenshot" rel="images/39.jpg" href="#">Ipsum dolor sit amet...</a></li>
-                            <li><a class="screenshot" rel="images/27.jpg" href="#">Malagos Cheese...</a></li>
-                            <li><a class="screenshot" rel="images/30.jpg" href="#">Salami Sausage...</a></li>
+                            <c:forEach items="${pro}" var="item">
+                                <li><a class="screenshot" href="<s:url action="product-detail?id=" />${item.id}">${item.title}</a></li>
+                            </c:forEach>
                         </ol>
                     </div>
                 </div>
