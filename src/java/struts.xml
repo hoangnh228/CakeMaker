@@ -50,11 +50,13 @@
             <result name="success">contact.jsp</result>
             <result name="input">contact.jsp</result>
         </action>
-        <action name="add-cart" class="action.CartAction" method="addCard">
+        <action name="add-cart" class="action.CartAction" method="addCart">
             <result name="success">cart.jsp</result>
-            <result name="error">cart.jsp</result>
         </action>
-        <action name="cart" class="action.CartAction" method="cart">
+        <action name="delete-cart" class="action.CartAction" method="deleteCart">
+            <result name="success">cart.jsp</result>
+        </action>
+        <action name="cart">
             <result name="success">cart.jsp</result>
         </action>
         

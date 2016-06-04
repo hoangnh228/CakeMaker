@@ -10,12 +10,8 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import controller.BannerController;
 import controller.CategoryController;
 import controller.ProductController;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import model.Cart;
 
 /**
  *
@@ -35,14 +31,6 @@ public class ClientInterceptor extends AbstractInterceptor {
         session.put("menu", menu);
         session.put("slider", slider);
         session.put("pro", product);
-        
-        List<Cart> cart;
-        
-        if(!session.containsKey("cart")) {
-            cart = new ArrayList<>();
-            session.put("cart", cart);
-            session.put("cart_total", cart.size());
-        }
         
         return actionInvocation.invoke();
     }

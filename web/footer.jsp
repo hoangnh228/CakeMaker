@@ -5,7 +5,7 @@
             </div>
         </div>
         <div class="copyright">
-            Copyright &copy; 2016 <a href="#" target="_blank">Bachkhoa-aptech</a>. Powered by <a href="http://www.zen-cart.com" target="_blank">Cake Maker</a> &nbsp;| &nbsp;<a href="#">Privacy Notice</a>
+            Copyright &copy; 2016 <a href="#" target="_blank">Bachkhoa-aptech</a>. Powered by <a href="#" target="_blank">Cake Maker</a> &nbsp;| &nbsp;<a href="#">Privacy Notice</a>
         </div>
         <div> </div>
         <div class="back_to_top">

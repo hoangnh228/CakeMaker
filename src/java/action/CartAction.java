@@ -12,58 +12,72 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import model.Cart;
+import model.CartItem;
 import model.Product;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
- * @author cam
+ * @author Orange
  */
-public class CartAction extends ActionSupport implements ServletRequestAware {
+public class CartAction extends ActionSupport implements ServletRequestAware{
     
+    private final ProductController controller;
     private HttpServletRequest request;
-    public List<Cart> cart;
-    public ProductController controller;
     
-    public String addCard() {
+    public String addCart() {
+        Map<String, Object> session = ActionContext.getContext().getSession();
         int id = Integer.parseInt(request.getParameter("id"));
-        HttpSession session = request.getSession();
-        cart = (List<Cart>) session.getAttribute("cart");
-
         Product p = controller.getById(id);
-        Cart c = new Cart();
-        c.setId(id);
-        c.setQuantity(1);
-        c.setPrice(p.getPrice());
-        c.setTitle(p.getTitle());
-        c.setImage(p.getImage());
-        cart.add(c);
-        session.setAttribute("cart", cart);
-        session.setAttribute("cart_total", cart.size());
+        List<CartItem> cart = null;
+        
+        if(session.get("cart") == null) {
+            cart = new ArrayList<>();
+            cart.add(new CartItem(p, 1));
+        } else {
+            cart = (List<CartItem>) session.get("cart");
+            int index = this.isExist(id);
+            
+            if(index == -1) {
+                cart.add(new CartItem(p, 1));
+            } else {
+                int quantity = cart.get(index).getQuantity() + 1;
+                cart.get(index).setQuantity(quantity);
+            }
+        }
+        
+        session.put("cart", cart);
         return SUCCESS;
     }
     
-    public String cart() {
-        Map session = ActionContext.getContext().getSession();
-        cart = (List<Cart>) session.get("cart");
+    public String deleteCart() {
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        List<CartItem> cart = (List<CartItem>) session.get("cart");
+        int id = Integer.parseInt(request.getParameter("id"));
+        int index = this.isExist(id);
+        cart.remove(index);
+        session.put("cart", cart);
         
-        if(cart.size() > 0) {
-            System.out.println(cart.size());
-            System.out.println(cart.get(0).getTitle());
+        return SUCCESS;
+    }
+    
+    public int isExist(int id) {
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        List<CartItem> cart = (List<CartItem>) session.get("cart");
+        
+        for (int i = 0; i < cart.size(); i++) {
+            if(cart.get(i).getProduct().getId() == id) {
+                return i;
+            }
         }
         
-        request.getSession().setAttribute("list", cart);
-        return SUCCESS;
+        return -1;
     }
 
     public CartAction() {
-        controller = new ProductController();
-//        cart = (List<Cart>) session.get("cart");
+        this.controller = new ProductController();
     }
-    
+
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;

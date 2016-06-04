@@ -15,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="public/css/stylesheet_social_media_icons.css"/>
     <link rel="stylesheet" type="text/css" href="public/css/stylesheet_tm.css"/>
     <link rel="stylesheet" type="text/css" href="public/css/index_home.css"/>
-    <link rel="stylesheet" type="text/css" media="print" href="css/print_stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" media="print" href="public/css/print_stylesheet.css"/>
     <script type="text/javascript" src="public/js/jscript_jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="public/js/jscript_jquery.nivo.slider.pack.js"></script>
     <script type="text/javascript" src="public/js/jscript_script.js"></script>
     <script type="text/javascript" src="public/js/jscript_xdropdown_menu.js"></script>
     <script type="text/javascript" src="public/js/jscript_xeasyTooltip.js"></script>
@@ -57,6 +56,16 @@
 
         $(function() {
             $('.messageStackSuccess').delay(5000).fadeOut('slow');
+            $("#slideshow > div:gt(0)").hide();
+
+            setInterval(function() { 
+              $('#slideshow > div:first')
+                .fadeOut(1000)
+                .next()
+                .fadeIn(1000)
+                .end()
+                .appendTo('#slideshow');
+            },  3000);
         });
     </script>
 </head>
