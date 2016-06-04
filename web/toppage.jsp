@@ -3,7 +3,7 @@
 
 <div id="header">
     <div class="logo">
-        <a href="#"><img src="public/images/logo.jpg" alt="" width="241" height="104"/></a>
+        <a href="<s:url value="/" />"><img src="public/images/logo.jpg" alt="" width="241" height="104"/></a>
     </div>
     <div class="menu" style="width: 100%;">
         <div id="navEZPagesTop">
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="cart">
-        <a class="st1" href="<s:url action="cart" />"><span>Shopping cart:</span></a><a class="on"><span class="count">${cart_total}</span> items</a>
+        <a class="st1" href="<s:url action="cart" />"><span>Shopping cart:</span></a><a class="on"><span class="count">${sessionScope.cart.size()}</span> items</a>
     </div>
     <div id="head-search">
         <form name="search" action="<s:url action="search" />" method="get">
@@ -75,25 +75,29 @@
         <a href="#"><img src="public/images/banner1.jpg" alt="" width="241" height="104"/></a>
     </div>
 </div>
+<style>
+    .slider {
+        width: 1024px;
+        height: 376px;
+    }
+    #slideshow { 
+        position: relative; 
+        width: 1024px; 
+    }
+
+    #slideshow > div { 
+        position: absolute; 
+        top: 0px; 
+        left: 0px; 
+        right: 0px; 
+        bottom: 0px; 
+    }
+</style>
 <div class="slider">
-    <script language="javascript" type="text/javascript">
-        jQuery(window).load(function () {
-            jQuery('#slider').nivoSlider({
-                effect: 'fade',
-                animSpeed: 500,
-                pauseTime: 4000,
-                directionNav: true,
-                directionNavHide: false,
-                controlNav: false,
-                pauseOnHover: true,
-                captionOpacity: 0.8
-            });
-        });
-    </script>
     <div class="slider-wrapper theme-default">
-        <div id="slider" class="nivoSlider">
+        <div id="slideshow">
             <c:forEach items="${sessionScope.slider}" var="item">
-                <a href="#"><img src="public/upload/banner/${item.url}" alt="" width="1024" height="376"/></a>
+                <div><a href="#"><img src="public/upload/banner/${item.url}" alt="" width="1024" height="376"/></a></div>
             </c:forEach>
         </div>
     </div>
