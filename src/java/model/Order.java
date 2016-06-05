@@ -22,13 +22,13 @@ public class Order {
     private String address;
     private String phone;
     private String note;
-    private boolean status;
+    private int status;
     private Date create_date;
 
     public Order() {
     }
 
-    public Order(int id, int user_id, String name, String email, String address, String phone, String note, boolean status, Date create_date) {
+    public Order(int id, int user_id, String name, String email, String address, String phone, String note, int status, Date create_date) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
@@ -96,11 +96,11 @@ public class Order {
         this.note = note;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
