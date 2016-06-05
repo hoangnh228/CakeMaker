@@ -19,6 +19,7 @@ public class Order {
     private int user_id;
     private String name;
     private String email;
+    private String address;
     private String phone;
     private String note;
     private boolean status;
@@ -27,11 +28,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int user_id, String name, String email, String phone, String note, boolean status, Date create_date) {
+    public Order(int id, int user_id, String name, String email, String address, String phone, String note, boolean status, Date create_date) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
         this.email = email;
+        this.address = address;
         this.phone = phone;
         this.note = note;
         this.status = status;
@@ -68,6 +70,14 @@ public class Order {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {

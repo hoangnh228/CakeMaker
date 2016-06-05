@@ -59,6 +59,10 @@
         <action name="cart">
             <result name="success">cart.jsp</result>
         </action>
+        <action name="checkout" class="action.OrderAction" method="checkout">
+            <result name="success">cart.jsp</result>
+            <result name="input">cart.jsp</result>
+        </action>
         
         <!-- user -->
         <action name="login">
