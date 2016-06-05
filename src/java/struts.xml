@@ -324,5 +324,24 @@
             <result name="success">/admin/user/index.jsp</result>
             <result name="error">/admin/user/index.jsp</result>
         </action>
+        
+        <!-- order -->
+        <action name="order" class="action.OrderAction" method="getAll">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/order/index.jsp</result>
+        </action>
+        <action name="order-detail" class="action.OrderAction" method="getById">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/order/detail.jsp</result>
+        </action>
+        <action name="confirm-order" class="action.OrderAction" method="confirm">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/order/detail.jsp</result>
+        </action>
+        <action name="delete-order" class="action.OrderAction" method="delete">
+            <interceptor-ref name="adminStack" />
+            <result name="success">/admin/order/index.jsp</result>
+            <result name="error">/admin/order/index.jsp</result>
+        </action>
     </package>
 </struts>

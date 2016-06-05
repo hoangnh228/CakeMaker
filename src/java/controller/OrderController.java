@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Category;
 import model.Order;
 import model.OrderDetail;
 import util.DatabaseUtil;
@@ -25,17 +24,21 @@ public class OrderController {
     
     public List getAll() {
         List list = new ArrayList<>();
-        String sql = "select * from categories";
+        String sql = "select * from orders";
 
         try {
             PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Category c = new Category();
-                c.setId(rs.getInt("id"));
-                c.setTitle(rs.getString("title"));
-                c.setDescription(rs.getString("description"));
-                list.add(c);
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setName(rs.getString("name"));
+                o.setEmail(rs.getString("email"));
+                o.setAddress(rs.getString("address"));
+                o.setPhone(rs.getString("phone"));
+                o.setStatus(rs.getInt("status"));
+                o.setCreate_date(rs.getDate("create_date"));
+                list.add(o);
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
@@ -44,25 +47,52 @@ public class OrderController {
         return list;
     }
     
-    public Category getById(int id) {
-        Category category = null;
-        String sql = "select * from categories where id = ?";
+    public List getAllDetail(int id) {
+        List list = new ArrayList<>();
+        String sql = "select * from order_detail where order_id = ?";
+
+        try {
+            PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderDetail o = new OrderDetail();
+                o.setProduct_id(rs.getInt("product_id"));
+                o.setPrice(rs.getFloat("price"));
+                o.setQuantity(rs.getInt("quantity"));
+                list.add(o);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+    public Order getById(int id) {
+        Order order = null;
+        String sql = "select * from orders where id = ?";
         
         try {
             PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setTitle(rs.getString("title"));
-                category.setDescription(rs.getString("description"));
+                order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setName(rs.getString("name"));
+                order.setEmail(rs.getString("email"));
+                order.setAddress(rs.getString("address"));
+                order.setPhone(rs.getString("phone"));
+                order.setNote(rs.getString("note"));
+                order.setStatus(rs.getInt("status"));
+                order.setCreate_date(rs.getDate("create_date"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return category;
+        return order;
     }
     
     public int insert(Order o) {
@@ -112,29 +142,33 @@ public class OrderController {
         return result;
     }
     
-    public int update(Category c) {
+    public int update(int id) {
         int records = 0;
-        String sql = "update categories set title = ?, description = ? where id = ?";
+        String sql = "update orders set status = 1 where id = ?";
+        
         try {
             PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
-            ps.setString(1, c.getTitle());
-            ps.setString(2, c.getDescription());
-            ps.setInt(3, c.getId());
+            ps.setInt(1, id);
             records = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return records;
     }
     
     public int delete(int id) {
         int deleted = 0;
-        String sql = "delete from categories where id = ?";
+        String sql = "delete from order_detail where order_id = ?";
+        String sql1 = "delete from orders where id = ?";
         
         try {
             PreparedStatement ps = DatabaseUtil.getCon().prepareStatement(sql);
             ps.setInt(1, id);
-            deleted = ps.executeUpdate();
+            ps.executeUpdate();
+            PreparedStatement ps1 = DatabaseUtil.getCon().prepareStatement(sql1);
+            ps1.setInt(1, id);
+            deleted = ps1.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         }

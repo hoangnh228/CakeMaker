@@ -5,9 +5,11 @@
  */
 package action;
 
+import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import controller.OrderController;
+import controller.ProductController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import model.CartItem;
 import model.Order;
 import model.OrderDetail;
+import model.Product;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
@@ -25,6 +29,7 @@ public class OrderAction extends ActionSupport implements ServletRequestAware {
     
     private Order order;
     private final OrderController controller;
+    private final ProductController pController;
     private int id;
     private List<Order> list = new ArrayList<>();
     private HttpServletRequest request;
@@ -56,8 +61,66 @@ public class OrderAction extends ActionSupport implements ServletRequestAware {
         }
     }
     
+    public String getAll() {
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        return SUCCESS;
+    }
+    
+    public String getById() {
+        int cid = Integer.parseInt(request.getParameter("id"));
+        Order detail = controller.getById(cid);
+        List<OrderDetail> listDetail = controller.getAllDetail(cid);
+        List<CartItem> cart = new ArrayList<>();
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        
+        for (OrderDetail d : listDetail) {
+            Product p = pController.getById(d.getProduct_id());
+            cart.add(new CartItem(p, d.getQuantity()));
+        }
+        
+        session.put("od", cart);
+        ServletActionContext.getRequest().getSession().setAttribute("order", detail);
+        return SUCCESS;
+    }
+    
+    public String confirm() {
+        int cid = Integer.parseInt(request.getParameter("id"));
+        controller.update(cid);
+        this.addActionMessage("Confirm order success!");
+        Order detail = controller.getById(cid);
+        List<OrderDetail> listDetail = controller.getAllDetail(cid);
+        List<CartItem> cart = new ArrayList<>();
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        
+        for (OrderDetail d : listDetail) {
+            Product p = pController.getById(d.getProduct_id());
+            cart.add(new CartItem(p, d.getQuantity()));
+        }
+        
+        session.put("od", cart);
+        ServletActionContext.getRequest().getSession().setAttribute("order", detail);
+        return SUCCESS;
+    }
+    
+    public String delete() {
+        int fid = Integer.parseInt(request.getParameter("id"));
+        int delete = controller.delete(fid);
+        list = controller.getAll();
+        ServletActionContext.getRequest().getSession().setAttribute("list", list);
+        
+        if(delete != 0) {
+            this.addActionMessage("Delete order success!");
+            return SUCCESS;
+        } else {
+            this.addActionError("Have some error, please try again!");
+            return ERROR;
+        }
+    }
+    
     public OrderAction() {
         this.controller = new OrderController();
+        this.pController = new ProductController();
     }
 
     public Order getOrder() {
