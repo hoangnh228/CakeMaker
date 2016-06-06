@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-md-6 col-md-push-3">
                             <!-- Horizontal Form -->
-                            <div class="box box-info">
+                            <div class="box box-info" style="padding: 5px;">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Order detail</h3>
                                 </div>
@@ -73,7 +73,7 @@
                                         <td>Status</td>
                                         <td>
                                             <s:set var="stt">${order.status}</s:set>
-                                            <s:if test="{#status}">
+                                            <s:if test="%{#stt==1}">
                                                 Delived
                                             </s:if>
                                             <s:else>
@@ -107,17 +107,17 @@
                                         <td>$<fmt:formatNumber value="${s}" minFractionDigits="2" maxFractionDigits="2"/></td>
                                     </tr>
                                 </table>
-                                <s:set var="stt">${order.status}</s:set>
-                                <s:if test="{#status}">
+                                <c:set var="stt">${order.status}</c:set>
+                                <s:if test="%{#stt==1}">
                                     <h4 style="text-align: center">This order delived!</h4>
                                 </s:if>
                                 <s:else>
                                     <a href="<s:url action="confirm-order?id=" />${order.id}" class="btn btn-block btn-primary">Confirm this order delived</a>
+                                    <s:url id="deleteOrder" action="delete-order">
+                                        <s:param name="id" value="%{id}"></s:param>
+                                    </s:url>
+                                    <s:a cssClass="btn btn-block btn-danger" onclick="return confirm('Are you sure delete this?');" href="%{deleteOrder}">Delete this order</s:a>
                                 </s:else>
-                                <s:url id="deleteOrder" action="delete-order">
-                                    <s:param name="id" value="%{id}"></s:param>
-                                </s:url>
-                                <s:a cssClass="btn btn-block btn-danger" onclick="return confirm('Are you sure delete this?');" href="%{deleteOrder}">Delete this order</s:a>
                             </div>
                             <!-- /.box -->
                         </div>
