@@ -81,11 +81,13 @@
                                                             <s:param name="id" value="%{id}"></s:param>
                                                         </s:url>
                                                         <s:a href="%{detail}">Detail</s:a>
-                                                        -
-                                                        <s:url id="deleteOrder" action="delete-order">
-                                                            <s:param name="id" value="%{id}"></s:param>
-                                                        </s:url>
-                                                        <s:a onclick="return confirm('Are you sure delete this?');" href="%{deleteOrder}">Delete</s:a>
+                                                         <s:if test="%{!status}">
+                                                            -
+                                                            <s:url id="deleteOrder" action="delete-order">
+                                                                <s:param name="id" value="%{id}"></s:param>
+                                                            </s:url>
+                                                            <s:a onclick="return confirm('Are you sure delete this?');" href="%{deleteOrder}">Delete</s:a>
+                                                        </s:if>
                                                     </td>
                                                 </tr>
                                             </s:iterator>

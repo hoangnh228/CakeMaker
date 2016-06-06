@@ -76,29 +76,22 @@
             <result name="none" type="redirectAction">index</result>
         </action>
         <action name="profile" class="action.UserAction" method="userProfile">
-            <interceptor-ref name="haveToLoginStack" />
             <result name="success">profile.jsp</result>
             <result name="error">index.jsp</result>
-            <result name="login" type="redirectAction">login</result>
         </action>
         <action name="go-register" class="action.UserAction" method="userRegister">
-            <interceptor-ref name="loginStack" />
             <result name="success">login.jsp</result>
             <result name="input">register.jsp</result>
-            <result name="none" type="redirectAction">index</result>
         </action>
         <action name="go-login" class="action.UserAction" method="userLogin">
             <result name="success" type="redirectAction">index</result>
             <result name="input">login.jsp</result>
         </action>
         <action name="go-profile" class="action.UserAction" method="userUpdateProfile">
-            <interceptor-ref name="haveToLoginStack" />
             <result name="success">profile.jsp</result>
             <result name="input">profile.jsp</result>
-            <result name="login" type="redirectAction">login</result>
         </action>
         <action name="logout" class="action.UserAction" method="userLogout">
-            <interceptor-ref name="loginStack" />
             <result name="success" type="redirectAction">index</result>
             <result name="none" type="redirectAction">index</result>
         </action>
